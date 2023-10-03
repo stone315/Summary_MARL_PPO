@@ -149,7 +149,7 @@
            
            <div class="container has-text-justified">
             <h3 class="title is-4 has-text-left"></br>Relationship Between Decision-Making for robootics</h3>
-            <p>  MARL has a wide range of applications in wireless communication, social welfare, transportation systems, power systems, autonomous vehicles, and robotics. Particularly, in robotics, MARL can be applied into multi-robot systemswhere robots collaborate to accomplish challenging tasks beyond the capabilities of a single agent. Common tasks include:
+            <p>  MARL has a wide range of applications in wireless communication, social welfare, transportation systems, power systems, autonomous vehicles, and robotics. Particularly, in robotics, MARL can be applied into multi-robot systems [5] where robots collaborate to accomplish challenging tasks beyond the capabilities of a single agent. Common tasks include:
             </p>
             </br>
             <ul style="list-style-type:disc">
@@ -176,8 +176,12 @@
                 <li> <b>Frameworks:</b> The research in frameworks can be classified into two categories: <b>Centralized Training</b> and <b>Decentralized Training</b>. In Decentralized Training, each agent is trained independently based on its own local observations. This approach is known for its scalability and flexibility, offering agents a degree of autonomy in their learning processes. In contrast, Centralized Training allows agents to share their observations during the training stage.  This method is more popular due to its ability to converge towards an optimized policy. A more detailed introduction to Centralized Training will be discussed in the Method section. </li> </br>
                 <li> <b>Techniques: </b> MARL shares significant commonalities with other fields. <b>Control Theory</b> offers a framework for modeling agents' dynamic behaviors, making model-based methods valuable for more effective training. <b>Optimization Theory</b> insights guide the optimization of cost functions under various constraints. Furthermore, <b>Game Theory </b>, known for solving competitive games and finding equilibrium points, is valuable in handling the strategic interactions among agents frequently seen in MARL scenarios. This cross-disciplinary collaboration strengthens MARL by drawing from these fields, driving innovation, and improving multi-agent decision-making.</li> </br>
                 <li> <b>Application:</b>As mentioned above, MARL has been extensively researched in various application areas.</li> </br>
-                <li> <b>Exploration:</b> Exploration methods are important in the field of RL as they are designed to discover effective strategies for efficiently searching the state space while maintaining accurate value function estimates. In the context of MARL, exploration becomes even more crucial. As the number of agents grows, the state space expands exponentially, underscoring the need for efficient exploration methods. To address this challenge, researchers often employ multi-arm bandit models in MARL studies, implementing well-established approaches such as UCB (Upper Confidence Bound). Some other methods are designed based on different senarios, such as Risk Exploration, Epsilon Greedy, and goal-oriented search techniques. </li> </br>
-                <li> <b>Transfer Learning:</b> In MARL, Transfer Learning plays a significant role in enhancing agent performance. Techniques such as Imitation Reinforcement Learning (IRL), where agents learn by emulating the behaviors of experts, provide valuable insights for knowledge transfer. Additionally, methods like 'student-teacher advising' facilitate the transfer of expertise from more experienced agents to less experienced ones, optimizing the learning process. Moreover, the incorporation of expert knowledge through 'expert learning' enriches MARL by leveraging pre-existing insights and experiences.</li> </br>
+                <li> <b>Exploration:</b> Exploration methods are important in the field of RL as they are designed to discover effective strategies for efficiently searching the state space while maintaining accurate value function estimates. In the context of MARL, exploration becomes even more crucial. As the number of agents grows, the state space expands exponentially, underscoring the need for efficient exploration methods. To address this challenge, researchers often employ multi-arm bandit models in MARL studies, implementing well-established approaches such as <b> UCB </b> (Upper Confidence Bound). Some other methods are designed based on different senarios, such as <b>Risk Exploration </b>, <b>Epsilon Greedy </b>, and <b> goal-oriented search </b> techniques. </li> </br>
+                <li> <b>Transfer Learning:</b> In line with RL, MARL explores the realm of transfer learning, uch as <b> Imitation Reinforcement Learning </b> and <b> Inverse RL </b>. However, MARL places a distinct emphasis on group-level transfer. Unlike the conventional approach of transferring individual policies to agents, MARL prioritizes preserving the correlation between agents, fostering collective learning and coordination.</li> </br>
+                <li> <b>Social Agent:</b> Social Agents represent a distinctive focus within MARL, aiming to emulate human social behaviors and apply them strategically to enhance policy effectiveness. For instance, humans employ concepts like <b> consensus </b> and <b> negotiation </b>, which can be adapted for use within group agents to ensure agents' policy coverage.</li> </br>
+                <li> <b>Information Sharing:</b> Information sharing is a key focus in MARL with a lot of significant research. In decentralized settings, agents often decide based on their own local information, which may not be enough to find the best solution. To improve their policies, agents are encouraged to communicate and share information. Some research in this area looks at factors like <b> relative physical distance </b> or <b> mutual information (MI) </b> in order to decide when and whom to talk to.</li> </br>
+                <li> <b>Transformers:</b> MARL often deals with complex, high-dimensional state spaces, which can be challenges for exploration and decision-making. To address this, some research suggests reducing the dimensionality of the state information. One approach involves using Transformers to perform this reduction. These Transformers typically employ <b> attention networks </b> and <b> graph networks </b> to simplify and process the state information effectively.</li> </br>
+                <li> <b>State/Reward/Q Estimation:</b> State, Reward, and Q Estimation is another crucial aspect of MARL, often with a shared interest in RL. Both MARL and single RL aim to accurately estimate the values of State/Reward/Q function to minimize <b> overestimation </b> and bias.</li> </br>
             </ul>
               
             </div>
@@ -215,7 +219,13 @@
              <li> Discount factor \( (\gamma)\)
          </ul>
         </br>
-        <p> </p>
+        <p> The objective function in MARL is defined as $$ Q(\mathbb{\tau}(t), \textbf{a}(t)) = \mathbb{E}_{\textbf{a} \sim \pi} \left[ \sum_{t=0}^{\infty} \gamma^t R(\textbf{a}(t), \textbf{s}(t)) \right] $$
+        where \( \mathbf{\tau} \) is the historical trajectory and \( Q \) is the joint Q function of all agents. Particularly, we are interested in the <b> Cooperative tasks</b> setting that which is trying to <b> maximize the objective function </b>.</p> </br>
+        <p> It is essential to highlight two significant differences between MDP and Dec-POMDP:</p> </br>
+        <ul style="list-style-type:disc">
+            <li> <b>Observability</b>  In an MDP, the environment is typically fully observable by the single agent making decisions. The agent has access to complete and accurate information about the state of the environment at each time step, simplifying decision-making. In contrast, a Dec-POMDP operates in scenarios where multiple agents interact in a shared environment. The environment's state is not fully observable to any single agent; instead, agents have <b> partial, often noisy, observations </b> of the environment. This partial observability adds complexity to the decision-making process.</li> </br>
+            <li> <b>Decentralization Decision Making</b> Dec-POMDPs involve multiple agents, each with its own objectives and partial observations. Importantly, these agents make decisions independently based on their local observations and objectives. While they act independently, the actions taken by one agent can still indirectly influence the observations and decisions of other agents within the shared environment.</li> </br>
+        </ul>
         </div>
       </div>
     </section>
@@ -224,8 +234,9 @@
       <div class="hero-body">
         <div class="container has-text-justified">
          <h2 class="title is-3 has-text-centered"></br><a id="Training Method">Training Methods</a></h2>
-         <p>  </p>
+         <p> Many different frameworks have been proposed to solve the Dec-POMDP problem. Here, we will focus on the <b> Centralized Training and Decentralized excitation (CTDE) </b> method. CTDE methods operate under the assumption that global observations can be shared during the training phase, while decision-making occurs locally and independently for each agent during execution.  </p>
            </br>
+         <p> <b> Value-Decomposition Networks (VDN) </b> [12] stands as one of the pioneering frameworks to propose CTDE methods. It suggests that the joint Q function can be effectively decomposed into individual Q functions for each agent through credit assignment. $$ Q(\mathbb{\tau}(t), \textbf{a}(t)) = \sum_i^N Q_i(\tau_i(t), a_i(t)) $$ VDN laid the foundation for subsequent advancements in this area. Building upon VDN, the Qmix [9] framework has enhanced the performance by adding the mixer for credit assignment. Using mixer for credit assignment can perform more accurate approximation of the joint Q function. Therefore, <b> Qmix </b> is notable for its ability to guarantee an optimal policy, if the target Q function follows a monotonic function. Qmix framework also has a series of extensions and variations, such as WQmix. Another noteworthy approach is <b> Multi-Agent Deep Deterministic Policy Gradients (MADDPG) </b> [10], an Actor-Critic method designed explicitly for MARL. While these CTDE methods have made significant strides in addressing Dec-POMDP challenges, it is essential to recognize that the landscape of MARL is continuously evolving. In this website, our focus will be on exploring a range of multi-agent PPO frameworks, which offer an alternative perspective for tackling multi-agent decision-making.
 
         </div>
       </div>
@@ -237,10 +248,55 @@
       <div class="hero-body">
         <div class="container has-text-justified">
          <h2 class="title is-3 has-text-centered"></br><a id="PPO">PPO</a></h2>
-         <p>  </p>
+         <p>  In the subsequent sections, we introduce the evolution and development of PPO frameworks for MARL. This summary is provided in the table I [14].</p>
            </br>
-
         </div>
+        <table style="width:80%" class="is-max-desktop" align="center" cellpadding="10" cellspacing="10">
+        <thead class="is-8">
+          <tr style="text-align: left">
+            <th>Framework</th>
+            <th>MARL/Single RL</th>
+            <th>Update</th>
+            <th>Training</th>
+          </tr>
+        </thead>
+        <tbody class="is-8" style="border: 1px solid black">
+          <tr>
+            <td>TRPO</td>
+            <td>Single RL</td>
+            <td>/</td>
+            <td>/</td>
+          </tr>
+          <tr>
+            <td>PPO</td>
+            <td>Single RL</td>
+            <td>/</td>
+            <td>/</td>
+          </tr>
+          <tr>
+            <td>IPPO</td>
+            <td>MARL</td>
+            <td>Simultaneous</td>
+            <td>Decentralized</td>
+          </tr>
+          <tr>
+            <td>MAPPO</td>
+            <td>MARL</td>
+            <td>Simultaneous</td>
+            <td>Centralized</td>
+          </tr>
+          <tr>
+            <td>HAPPO</td>
+            <td>MARL</td>
+            <td>Sequential</td>
+            <td>Centralized</td>
+          </tr>
+          
+        </thead>
+        </table>
+        
+      </br>
+      <p> PPO framework, introduced by OpenAI in 2017 [2], stands as a leading RL. PPO is an approximation of the Trust Region Policy Optimization (TRPO) [1] approach. TRPO revolves around an objective function and constraints, providing a foundational basis from which PPO further evolves. PPO's innovative techniques have propelled it to the forefront of RL, driving advancements in single-agent training methodologies. </p>
       </div>
     </section>
     
@@ -338,6 +394,9 @@
               </p>
               <p>
                 [13]<a href="https://pettingzoo.farama.org/content/basic_usage/">PettingZoo</a>.
+              </p>
+              <p>
+                [14]<a href="https://arxiv.org/pdf/2309.12951.pdf">Boosting Studies of Multi-Agent Reinforcement Learning on Google Research Football Environment: the Past, Present, and Future. Yan Song, He Jiang, Haifeng Zhang, Zheng Tian, Weinan Zhang, Jun Wang. 2023.</a>.
               </p>
             </div>
           </div>
