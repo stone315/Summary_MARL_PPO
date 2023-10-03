@@ -111,7 +111,7 @@
         <div class="container is-max-desktop">
           <div class="columns is-centered">
             <div class="column has-text-centered">
-              <h1 class="title is-1 publication-title">An Ultimate Summary of PPO in Multi-agent Reinforcement Learning</h1>
+              <h1 class="title is-1 publication-title">An Ultimate Summary of PPOs in Multi-agent Reinforcement Learning</h1>
               <div class="is-size-5 publication-authors">
                 <span class="author-block">
                   <a href="">Chak Lam Shek</a><sup>*</sup>,</span>
@@ -131,30 +131,69 @@
       <div class="hero-body">
         <div class="container has-text-justified">
          <h2 class="title is-3 has-text-centered"></br><a id="Introdyction">Introduction</a></h2>
-         <p>  </p>
+         <p> On this website, we present a series of Proximal Policy Optimization (PPO) frameworks for Multi-Agent Reinforcement Learning (MARL). We begin by offering concise summaries of the latest advancements and ongoing challenges in the field of MARL. This page starts with a comprehensive overview of MARL research, followed by an introducton of the Decentralized Partially Observable Markov Decision Process (Dec-POMDP) model. Subsequently, we delve into the algorithm of various PPO frameworks, offering detailed insights and guidance. </p>
 
            
            <div class="container has-text-justified">
-            <h3 class="title is-3 has-text-left"></br>Multi-agent Reinforcement Learning (MARL)</h2>
-            <p>  </p>
-              </br>
+            <h3 class="title is-4 has-text-left"></br>MARL</h3>
+            <p> MARL is a subfield within reinforcement learning (RL) that focuses on the dynamic decision-making processes of multiple agents. These agents interact with their environment, seeking to learn effective policies based on feedback. The interactions among these agents can be characterized as cooperative, competitive, or the mixture of both.
+            </p>
+            </br>
+            <ul style="list-style-type:disc">
+                <li><b>Cooperative Tasks:</b> In cooperative settings, the primary goal of MARL is to compute an optimal policy that maximizes the expected cumulative reward for the entire group of agents. This approach assumes that agents collaborate and work together to achieve a common objective. The multi-agent PPO frameworks are used to solve the problem in this category.</li> </br>
+                <li><b>Competitive or Mixed Tasks:</b> In competitive or mixed scenarios, the universally optimal policy becomes elusive. Here, agents make decisions while considering the decisions of others, leading to complex interdependencies. In such cases, the focus shifts towards identifying Nash equilibrium policies, where no agent can unilaterally improve their situation given the actions of the others. These equilibrium policies capture the strategic interactions among agents.
+            </ul>
+            </br>
 
            </div>
            
            <div class="container has-text-justified">
-            <h3 class="title is-3 has-text-left"></br>Relationship Between Decision-Making for robootics</h2>
-            <p>  </p>
-              </br>
-
+            <h3 class="title is-4 has-text-left"></br>Relationship Between Decision-Making for robootics</h3>
+            <p>  MARL has a wide range of applications in wireless communication, social welfare, transportation systems, power systems, autonomous vehicles, and robotics. Particularly, in robotics, MARL can be applied into multi-robot systemswhere robots collaborate to accomplish challenging tasks beyond the capabilities of a single agent. Common tasks include:
+            </p>
+            </br>
+            <ul style="list-style-type:disc">
+                <li> <b>Cooperative Navigation:</b> In cooperative navigation, each robot is tasked with reaching a target location while avoiding collisions with other agents. This collaborative approach ensures safe and efficient movement within complex environments. </li> </br>
+                <li> <b>Cooperative Defending: </b> The mission of cooperative defending involves protecting a target by strategically blocking potential threats or enemies. Multiple robots work together to secure the area and safeguard the objective. </li> </br>
+                <li> <b>UAV and UGV Coordination:</b> Coordination between Unmanned Aerial Vehicles (UAVs) and Unmanned Ground Vehicles (UGVs) is a popular area of research. UAVs possess high mobility, enabling them to cover areas that UGVs may find inaccessible. UGVs, on the other hand, are energy-efficient and capable of traveling longer distances. By coordinating the actions of both types of robots, the search and coverage area can be significantly enhanced.</li> </br>
+                <li> <b>Robot Joints Coordination:</b> Robot joints coordination assumes that each joint of a robotic system acts independently. In this scenario, each joint must make independent actions to control the overall movement of the robot. This level of coordination is essential for achieving precise and complex maneuvers. </li> </br>
+            </ul>
+            </br>
+            <figure>
+              <img style="width:30%" src="./static/image/mpe_simple_adversary.gif">
+              <img src="./static/image/multiwalker.gif">
+              <figcaption>Figure 1 - Simple Adversary and Multiwalker examples in pettingZoo [13]. <b>(a)</b> In Simple Adversary environment, there is 1 adversary, 2 good agents and 2 landmarks.  Good agents are rewarded based on how close the closest one of them is to the target landmark, but negatively rewarded based on how close the adversary is to the target landmark. <b>(b)</b> In Multiwalker environement, bipedal robots attempt to carry a package placed on top of them towards the right. </figcaption>
+            </figure>
+            
            </div>
            
            <div class="container has-text-justified">
-            <h3 class="title is-3 has-text-left"></br>Research Areas</h2>
-            <p>  </p>
+            <h3 class="title is-4 has-text-left"></br>Research Areas</h3>
+            <p> Some research topics are shown in the figure 2. The topics are orginized based on their research focus. </p>
               </br>
-
-           </div>
+            
+            <ul style="list-style-type:disc">
+                <li> <b>Frameworks:</b> The research in frameworks can be classified into two categories: <b>Centralized Training</b> and <b>Decentralized Training</b>. In Decentralized Training, each agent is trained independently based on its own local observations. This approach is known for its scalability and flexibility, offering agents a degree of autonomy in their learning processes. In contrast, Centralized Training allows agents to share their observations during the training stage.  This method is more popular due to its ability to converge towards an optimized policy. A more detailed introduction to Centralized Training will be discussed in the Method section. </li> </br>
+                <li> <b>Techniques: </b> MARL shares significant commonalities with other fields. <b>Control Theory</b> offers a framework for modeling agents' dynamic behaviors, making model-based methods valuable for more effective training. <b>Optimization Theory</b> insights guide the optimization of cost functions under various constraints. Furthermore, <b>Game Theory </b>, known for solving competitive games and finding equilibrium points, is valuable in handling the strategic interactions among agents frequently seen in MARL scenarios. This cross-disciplinary collaboration strengthens MARL by drawing from these fields, driving innovation, and improving multi-agent decision-making.</li> </br>
+                <li> <b>Application:</b>As mentioned above, MARL has been extensively researched in various application areas.</li> </br>
+                <li> <b>Exploration:</b> Exploration methods are important in the field of RL as they are designed to discover effective strategies for efficiently searching the state space while maintaining accurate value function estimates. In the context of MARL, exploration becomes even more crucial. As the number of agents grows, the state space expands exponentially, underscoring the need for efficient exploration methods. To address this challenge, researchers often employ multi-arm bandit models in MARL studies, implementing well-established approaches such as UCB (Upper Confidence Bound). Some other methods are designed based on different senarios, such as Risk Exploration, Epsilon Greedy, and goal-oriented search techniques. </li> </br>
+                <li> <b>Transfer Learning:</b> In MARL, Transfer Learning plays a significant role in enhancing agent performance. Techniques such as Imitation Reinforcement Learning (IRL), where agents learn by emulating the behaviors of experts, provide valuable insights for knowledge transfer. Additionally, methods like 'student-teacher advising' facilitate the transfer of expertise from more experienced agents to less experienced ones, optimizing the learning process. Moreover, the incorporation of expert knowledge through 'expert learning' enriches MARL by leveraging pre-existing insights and experiences.</li> </br>
+            </ul>
+              
+            </div>
+            <div class="container has-text-justified">
+            <img src="./static/image/Slide1.png" style="vertical-align:top">
+             </div>
+            <div class="container has-text-justified">
+            <img src="./static/image/Slide2.png" style="vertical-align:top">
+             </div>
+            <div class="container has-text-justified">
+            <img src="./static/image/Slide3.png" style="vertical-align:top">
+            <p> Figure 2. Common research topics in MARL </p>
+                  </br>
+             </div>
            
+        
         </div>
       </div>
     </section>
@@ -163,7 +202,7 @@
       <div class="hero-body">
         <div class="container has-text-justified">
          <h2 class="title is-3 has-text-centered"></br><a id="Problem">Problem Formation</a></h2>
-         <p> A common problem of MARL is formulated as Decentralized Partially Observable Markov Decision Process (<b>Dec-POMDP</b>), an extension of the standard Markov Decision Process (MDP) Model. Dec-POMDP can be described as the tuple $$ G= (N, \textbf{S},\textbf{A},P,R, \Omega, \textbf{O}, \gamma )$$ The defination of each elemnt is presented below.</p>
+         <p> A common problem of MARL is formulated as Decentralized Partially Observable Markov Decision Process (<b>Dec-POMDP</b>), an extension of the standard Markov Decision Process (MDP) Model. Dec-POMDP can be described as the tuple $$ G= (N, \textbf{S},\textbf{A},P,R, \Omega, \textbf{O}, \gamma ),$$</p>
            </br>
         <ul style="list-style-type:disc">
              <li> Number of agents \((N)\) </li>
@@ -260,41 +299,45 @@
 
             <div class="content has-text-justified">
               <p>
-                <a href="https://arxiv.org/pdf/1502.05477.pdf">Trust Region Policy Optimization</a>. John Schulman, Sergey Levine, Philipp Moritz, Michael I. Jordan, Pieter Abbeel. ICML. 2015
+                [1]<a href="https://arxiv.org/pdf/1502.05477.pdf">Trust Region Policy Optimization</a>. John Schulman, Sergey Levine, Philipp Moritz, Michael I. Jordan, Pieter Abbeel. ICML. 2015
               </p>
               <p>
-                <a href="https://arxiv.org/pdf/1707.06347.pdf">Proximal Policy Optimization Algorithms</a>. John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, Oleg Klimov. OpenAI 2017.
+                [2]<a href="https://arxiv.org/pdf/1707.06347.pdf">Proximal Policy Optimization Algorithms</a>. John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, Oleg Klimov. OpenAI 2017.
               </p>
 
               <p>
-                <a href="https://arxiv.org/pdf/2011.09533.pdf">Is Independent Learning All You Need in the StarCraft Multi-Agent Challenge?</a>. Christian Schroeder de Witt, Tarun Gupta, Denys Makoviichuk, Viktor Makoviychuk, Philip H.S. Torr, Mingfei Sun, Shimon Whiteson. 2020
+                [3]<a href="https://arxiv.org/pdf/2011.09533.pdf">Is Independent Learning All You Need in the StarCraft Multi-Agent Challenge?</a>. Christian Schroeder de Witt, Tarun Gupta, Denys Makoviichuk, Viktor Makoviychuk, Philip H.S. Torr, Mingfei Sun, Shimon Whiteson. 2020
               </p>
               <p>
-                <a href="https://arxiv.org/pdf/2103.01955.pdf">The Surprising Effectiveness of PPO in Cooperative Multi-Agent Game</a>. Chao Yu, Akash Velu, Eugene Vinitsky, Jiaxuan Gao, Yu Wang, Alexandre Bayen, Yi Wu. NeurlPS 2022
+                [4]<a href="https://arxiv.org/pdf/2103.01955.pdf">The Surprising Effectiveness of PPO in Cooperative Multi-Agent Game</a>. Chao Yu, Akash Velu, Eugene Vinitsky, Jiaxuan Gao, Yu Wang, Alexandre Bayen, Yi Wu. NeurlPS 2022
               </p>
               <p>
-                <a href="https://arxiv.org/pdf/2109.11251.pdf">TRUST REGION POLICY OPTIMISATION IN MULTI-AGENT REINFORCEMENT LEARNING</a>. Jakub Grudzien Kuba, Ruiqing Chen, Muning Wen, Ying Wen, Fanglei Sun, Jun Wang, Yaodong Yang. ICRL 2022.
+                [5]<a href="https://arxiv.org/pdf/2109.11251.pdf">TRUST REGION POLICY OPTIMISATION IN MULTI-AGENT REINFORCEMENT LEARNING</a>. Jakub Grudzien Kuba, Ruiqing Chen, Muning Wen, Ying Wen, Fanglei Sun, Jun Wang, Yaodong Yang. ICRL 2022.
               </p>
               <p>
-                <a href="https://arxiv.org/pdf/2205.14953.pdf">Multi-Agent Reinforcement Learning is A Sequence Modeling Problem</a>. Muning Wen, Jakub Grudzien Kuba, Runji Lin, Weinan Zhang, Ying Wen, Jun Wang, Yaodong Yang. 2022.
+                [6]<a href="https://arxiv.org/pdf/2205.14953.pdf">Multi-Agent Reinforcement Learning is A Sequence Modeling Problem</a>. Muning Wen, Jakub Grudzien Kuba, Runji Lin, Weinan Zhang, Ying Wen, Jun Wang, Yaodong Yang. 2022.
               </p>
               <p>
-                <a href="https://arxiv.org/pdf/2203.11653.pdf">Transferring Multi-Agent Reinforcement Learning Policies for Autonomous Driving using Sim-to-Real</a>. Eduardo Candela, Leandro Parada, Luis Marques, Tiberiu-Andrei Georgescu, Yiannis Demiris, Panagiotis Angeloudis. 2022.
+                [7]<a href="https://arxiv.org/pdf/2203.11653.pdf">Transferring Multi-Agent Reinforcement Learning Policies for Autonomous Driving using Sim-to-Real</a>. Eduardo Candela, Leandro Parada, Luis Marques, Tiberiu-Andrei Georgescu, Yiannis Demiris, Panagiotis Angeloudis. 2022.
               </p>
               <p>
-                <a href="https://arxiv.org/pdf/2304.09870.pdf">Heterogeneous-Agent Reinforcement Learning</a>. Yifan Zhong, Jakub Grudzien Kuba, Siyi Hu, Jiaming Ji, Yaodong Yang. 2023.
+                [8]<a href="https://arxiv.org/pdf/2304.09870.pdf">Heterogeneous-Agent Reinforcement Learning</a>. Yifan Zhong, Jakub Grudzien Kuba, Siyi Hu, Jiaming Ji, Yaodong Yang. 2023.
               </p>
               <p>
-                <a href="https://arxiv.org/pdf/1803.11485.pdf">QMIX: Monotonic Value Function Factorisation for Deep Multi-Agent Reinforcement Learning</a>. Tabish Rashid, Mikayel Samvelyan, Christian Schroeder de Witt, Gregory Farquhar, Jakob Foerster, Shimon Whiteson. ICML 2018.
+                [9]<a href="https://arxiv.org/pdf/1803.11485.pdf">QMIX: Monotonic Value Function Factorisation for Deep Multi-Agent Reinforcement Learning</a>. Tabish Rashid, Mikayel Samvelyan, Christian Schroeder de Witt, Gregory Farquhar, Jakob Foerster, Shimon Whiteson. ICML 2018.
               </p>
               <p>
-                <a href="https://arxiv.org/pdf/1706.02275.pdf">Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments</a>. Ryan Lowe, Yi Wu, Aviv Tamar, Jean Harb, Pieter Abbeel, Igor Mordatch. 2020.
+                [10]<a href="https://arxiv.org/pdf/1706.02275.pdf">Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments</a>. Ryan Lowe, Yi Wu, Aviv Tamar, Jean Harb, Pieter Abbeel, Igor Mordatch. 2020.
               </p>
               <p>
-                <a href="https://web.media.mit.edu/~cynthiab/Readings/tan-MAS-reinfLearn.pdf">Multi-Agent Reinforcement Learning: Independent vs. Coop erative Agents</a>. Ming Tan.
+                [11]<a href="https://web.media.mit.edu/~cynthiab/Readings/tan-MAS-reinfLearn.pdf">Multi-Agent Reinforcement Learning: Independent vs. Coop erative Agents</a>. Ming Tan.
               </p>
               <p>
-                <a href="https://arxiv.org/pdf/1706.05296.pdf">Value-Decomposition Networks For Cooperative Multi-Agent Learning</a>. Peter Sunehag, Guy Lever, Audrunas Gruslys, Wojciech Marian Czarnecki, Vinicius Zambaldi, Max Jaderberg, Marc Lanctot, Nicolas Sonnerat, Joel Z. Leibo, Karl Tuyls, Thore Graepel. 2017.
+                [12]<a href="https://arxiv.org/pdf/1706.05296.pdf">Value-Decomposition Networks For Cooperative Multi-Agent Learning</a>. Peter Sunehag, Guy Lever, Audrunas Gruslys, Wojciech Marian Czarnecki, Vinicius Zambaldi, Max Jaderberg, Marc Lanctot, Nicolas Sonnerat, Joel Z. Leibo, Karl Tuyls, Thore Graepel. 2017.
+
+              </p>
+              <p>
+                [13]<a href="https://pettingzoo.farama.org/content/basic_usage/">PettingZoo</a>.
               </p>
             </div>
           </div>
