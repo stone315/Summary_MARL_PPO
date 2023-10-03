@@ -146,7 +146,7 @@
            
            <div class="container has-text-justified">
             <h3 class="title is-4 has-text-left"></br>Relationship Between Decision-Making for robootics</h3>
-            <p>  MARL has a wide range of applications in wireless communication, social welfare, transportation systems, power systems, autonomous vehicles, and robotics. Particularly, in robotics, MARL can be applied into multi-robot systems [5] where robots collaborate to accomplish challenging tasks beyond the capabilities of a single agent. Common tasks include:
+            <p>  MARL has a wide range of applications in wireless communication, social welfare, transportation systems, power systems, autonomous vehicles, and robotics. Particularly, in robotics, MARL can be applied into multi-robot systems [7] where robots collaborate to accomplish challenging tasks beyond the capabilities of a single agent. Common tasks include:
             </p>
             </br>
             <ul style="list-style-type:disc">
@@ -304,9 +304,9 @@
             <p>While TRPO offers the <b>Monotonic Improvement Guarantee </b>, assuring that each policy update leads to improvement, it encounters difficulties in directly addressing the constrained optimization problem. This challenge comes from the complexity of computing the KL divergence. Consequently, PPO proposes an approximation to tackle this optimization problem.
             $$ L(\theta) = \mathbb{E} \left[  \min(r_t(\theta)\hat{A}_t, clip(r_t(\theta), 1 - \epsilon, 1+\epsilon) \hat{A}_t) \right] $$
           
-            where \( clip \) function ensures the reward staying within the interval \([ 1 - \epsilon, 1 + \epsilon] \).
+            where \( clip \) function ensures the reward staying within the interval \([ 1 - \epsilon, 1 + \epsilon] \). This method removes the necessary of computing KL divergence.
           </p> </br>
-          
+            <img src="./static/image/PPO.png" style="width:60%">
         </div>
       </div>
     </section>
@@ -338,10 +338,16 @@
       <div class="hero-body">
         <div class="container has-text-justified">
          <h2 class="title is-3 has-text-centered"></br><a id="HAPPO">HAPPO</a></h2>
-         <p>  </p>
+         <p> While IPPO and MAPPO have demonstrated promising results in simulation environments, they also come with certain limitations. A notable constraint is that both MAPPO and IPPO require identical action spaces for all agents and the enforcement of parameter sharing \( \theta_i = \theta_j \) for all \( i,j \in \mathbb{N} \). This requirement causes it failing to maintain of the monotonic improvement guarantee, potentially leading to sub-optimal solutions. </p>
            </br>
-         <p> "HAPPO has numerous extension works, including Multi-Agent Transformer (MAT) [6]. MAT focuses on encoding joint observations into a lower-dimensional space, enhancing the sequential action selection for each agent.
+         <p> An improvement suggested by HAPPO [5] involves leveraging the decomposition of the joint advantage function into individual advantage functions. This method requires agents to follow an arbitrary order, denoted as 1:N. Agents update their policy sequentially one by one using the loss function from PPO. The total advantage function can then be decomposed using the equation $$A_\pi^{1:N} = \sum_{j=1}^N A_\pi^{j}(s, \textbf{a}^{{1:j-1}},a^{i}) $$
+            
+             where \( A_\pi^{j} \) represents the indivaul advantage function of agent j. The advantage function of each agent depends on the actions taken by agents 1 through j-1. Importantly, as each agent has its own advantage function, there is no need to share policy parameters. The paper also proves that HAPPO maintains the  monotonic improvement property, ie. \(J(\pi_{k+1}) \geq J(\pi_k) \) for all \( k \in \mathbb{N} \).
+        </p>
            </br>
+         <p> HAPPO has numerous extension works, including Multi-Agent Transformer (MAT) [6] and Heterogeneous-Agent Trust Region Learning (HATRL) [8]. MAT focuses on encoding joint observations into a lower-dimensional space, enhancing the sequential action selection for each agent. HATRL [8] provides theototical anlysis of general HAPPO and HATRPO and shows Nash equilibrium guarentee.
+           </br> </p>   </br>
+           <img src="./static/image/HAPPO.png" style="width:60%">
         </div>
       </div>
     </section>
@@ -398,7 +404,7 @@
                 [13]<a href="https://pettingzoo.farama.org/content/basic_usage/">PettingZoo</a>.
               </p>
               <p>
-                [14]<a href="https://arxiv.org/pdf/2309.12951.pdf">Boosting Studies of Multi-Agent Reinforcement Learning on Google Research Football Environment: the Past, Present, and Future. Yan Song, He Jiang, Haifeng Zhang, Zheng Tian, Weinan Zhang, Jun Wang. 2023.</a>.
+                [14]<a href="https://arxiv.org/pdf/2309.12951.pdf">Boosting Studies of Multi-Agent Reinforcement Learning on Google Research Football Environment: the Past, Present, and Future. </a>Yan Song, He Jiang, Haifeng Zhang, Zheng Tian, Weinan Zhang, Jun Wang. 2023.
               </p>
             </div>
           </div>
