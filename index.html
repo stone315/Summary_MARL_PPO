@@ -91,9 +91,6 @@
                   <a class="navbar-item" href="#HAPPO">
                     HAPPO
                   </a>
-                  <a class="navbar-item" href="#relatedWorks">
-                    Related Works
-                  </a>
                   <a class="navbar-item" href="#Reference">
                     Reference
                   </a>
@@ -296,7 +293,21 @@
         </table>
         
       </br>
-      <p> PPO framework, introduced by OpenAI in 2017 [2], stands as a leading RL. PPO is an approximation of the Trust Region Policy Optimization (TRPO) [1] approach. TRPO revolves around an objective function and constraints, providing a foundational basis from which PPO further evolves. PPO's innovative techniques have propelled it to the forefront of RL, driving advancements in single-agent training methodologies. </p>
+        <div class="container has-text-justified">
+          <p> PPO framework, introduced by OpenAI in 2017 [2], stands as a leading RL. PPO is an approximated version of the Trust Region Policy Optimization (TRPO) [1] approach. TRPO is trying to maximize an objective function under the constraints:
+          
+                $$ \max_\theta \mathbb{E} \left[ \frac{\pi_\theta (a_t|s_t)}{\pi_{\theta_{  \text{old}   }}(a_t|s_t)} \hat{A}_t \right] $$
+                $$\text{subject to} \mathbb{E}  \left[ \text{KL} \left[ \pi_{\theta_{  \text{old}   }}   (\cdot|s_t)  , \pi_\theta(\cdot|s_t) \right]  \right] \leq \delta$$
+          
+              where \( \hat{A} \) is the advantage function, \( \theta_{\text{old}}\) is the vector of policy parameters before update and KL stands for Kullback–Leibler divergence. This optimization problem is trying to find the optimal parameters that can maximize the reward without changing the policy alot. <p> </br>
+              
+            <p>While TRPO offers the <b>Monotonic Improvement Guarantee </b>, assuring that each policy update leads to improvement, it encounters difficulties in directly addressing the constrained optimization problem. This challenge comes from the complexity of computing the KL divergence. Consequently, PPO proposes an approximation to tackle this optimization problem.
+            $$ L(\theta) = \mathbb{E} \left[  \min(r_t(\theta)\hat{A}_t, clip(r_t(\theta), 1 - \epsilon, 1+\epsilon) \hat{A}_t) \right] $$
+          
+            where \( clip \) function ensures the reward staying within the interval \([ 1 - \epsilon, 1 + \epsilon] \).
+          </p> </br>
+          
+        </div>
       </div>
     </section>
     
@@ -329,22 +340,13 @@
          <h2 class="title is-3 has-text-centered"></br><a id="HAPPO">HAPPO</a></h2>
          <p>  </p>
            </br>
-
-        </div>
-      </div>
-    </section>
-    
-    
-    <section class="hero " >
-      <div class="hero-body">
-        <div class="container has-text-justified">
-         <h2 class="title is-3 has-text-centered"></br><a id="relatedWorks">Related Works</a></h2>
-         <p>  </p>
+         <p> "HAPPO has numerous extension works, including Multi-Agent Transformer (MAT) [6]. MAT focuses on encoding joint observations into a lower-dimensional space, enhancing the sequential action selection for each agent.
            </br>
-
         </div>
       </div>
     </section>
+    
+
     
     <section class="section">
       <div class="container is-max-desktop">
