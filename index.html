@@ -464,7 +464,33 @@
     <div class="hero-body">
       <div class="container has-text-justified">
         <h2 class="title is-3 has-text-centered"></br><a id="MAPPO">MAPPO</a></h2>
-        <p> </p>
+        <p> MAPPO is a multi-agent extension of PPO that utilizes centralized training with decentralized execution.
+          During
+          training, MAPPO leverages extra state information not available to the agents' local policies.</p>
+        <h3 class="title is-4">Key Aspects</h3>
+        <ul>
+          <li>MAPPO trains two networks - a decentralized policy network π<sub>θ</sub>(a<sub>i</sub>|o<sub>i</sub>) for
+            each
+            agent i, and a centralized value network V<sub>φ</sub>(s) that takes the global state s as input.</li>
+          <li>The policy network π<sub>θ</sub> learns to map local observations o<sub>i</sub> to agent actions
+            a<sub>i</sub>.
+          </li>
+          <li>The centralized value network V<sub>φ</sub>(s) uses extra state information unavailable to the agents'
+            policies.
+          </li>
+          <li>V<sub>φ</sub>(s) is used to estimate the advantage function A<sub>i</sub> for each agent i, which is then
+            used to
+            update the local policies π<sub>θ</sub>.</li>
+          <li>At execution time, each agent selects actions using only its local policy network
+            π<sub>θ</sub>(a<sub>i</sub>|o<sub>i</sub>). No communication between agents is required.</li>
+        </ul>
+        <h3 class="title is-4">Benefits</h3>
+        <ul>
+          <li>Centralized value function V<sub>φ</sub>(s) enables more accurate value estimates to reduce variance.</li>
+          <li>PPO's clipped objective limits policy change for stability.</li>
+          <li>Decentralized execution is flexible and scalable.</li>
+          <li>Achieves strong performance compared to decentralized and centralized off-policy methods.</li>
+        </ul>
         </br>
 
       </div>
