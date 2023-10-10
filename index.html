@@ -219,7 +219,7 @@
         <p> It is essential to highlight the significant differences between MDP and Dec-MDP:</p> </br>
         <ul style="list-style-type:disc">
             <!--<li> <b>Observability</b>  In an MDP, the environment is typically fully observable by the single agent making decisions. The agent has access to complete and accurate information about the state of the environment at each time step, simplifying decision-making. In contrast, a Dec-POMDP operates in scenarios where multiple agents interact in a shared environment. The environment's state is not fully observable to any single agent; instead, agents have <b> partial, often noisy, observations </b> of the environment. This partial observability adds complexity to the decision-making process.</li> </br> -->
-            <li> <b>Decentralization Decision Making</b> Dec-MDPs involve multiple agents, each with its own objectives <!--and partial observations -->. Importantly, these agents make decisions independently based on their local observations and objectives. While they act independently, the actions taken by one agent can still indirectly influence the observations and decisions of other agents within the shared environment.</li> </br>
+            <li> <b>Decentralization Decision Making</b> Dec-MDPs involve multiple agents, each with its own objectives <!--and partial observations -->. Importantly, these agents make decisions independently based on the state <!--their local observations --> and objectives. While they act independently, the actions taken by one agent can still indirectly influence decisions of other agents within the shared environment.</li> </br>
         </ul>
         </div>
       </div>
