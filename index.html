@@ -313,7 +313,7 @@
       <div class="hero-body">
         <div class="container has-text-justified">
          <h2 class="title is-3 has-text-centered"></br><a id="IPPO">IPPO</a></h2>
-         <p>  </p>
+         <p> IPPO is a multi-agent version of PPO where each agent learns an independent policy based only on its own observations. The key aspects of IPPO are:</p> <ul> <li>Each agent a has its own local policy π<sub>a</sub> and critic V<sub>φ</sub>(z<sub>a</sub><sub>t</sub>) </li> <li>The local policy loss for each agent a is: <img src="ippo_equation.png"> </li> <li>Where A<sub>a</sub><sub>t</sub> is the advantage function computed using the global reward signal</li> <li>The min term implements PPO's clipped probability ratio</li> <li>Network parameters are shared between the decentralized policies and critics</li> </ul> <p>Despite learning fully decentralized policies, IPPO shows strong performance compared to methods that learn centralized policies. Its main benefits are:</p> <ul> <li>Decentralized execution allows for distributed training and execution</li> <li>Avoids the joint action space explosion faced by centralized methods</li> <li>PPO's policy clipping provides learning stability</li> </ul> <p>IPPO demonstrates that independent learning can achieve excellent results in multi-agent tasks, without needing joint action-value functions. </p>
            </br>
 
         </div>
