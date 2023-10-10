@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html>
-    <head>
-      <meta charset="utf-8">
-      <meta name="description"
-            content="PPO and MARL">
-      <meta name="keywords" content="PPO, MARL">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>An Ultimate Summary of PPOs in Multi-agent Reinforcement Learning </title>
-    
-      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-      
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
-      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
-      <!-- Global site tag (gtag.js) - Google Analytics -->
-      <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
-      <!-- <script>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="PPO and MARL">
+  <meta name="keywords" content="PPO, MARL">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>An Ultimate Summary of PPOs in Multi-agent Reinforcement Learning </title>
+
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+    integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+    integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz"
+    crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
+  <!-- <script>
         window.dataLayer = window.dataLayer || [];
     
         function gtag() {
@@ -26,227 +31,325 @@
     
         gtag('config', 'G-PYVRSFMDRL');
       </script> -->
-    
-      <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-            rel="stylesheet">
-    
-      <link rel="stylesheet" href="./static/css/bulma.min.css">
-      <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-      <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-      <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-      <link rel="stylesheet"
-            href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-      <link rel="stylesheet" href="./static/css/index.css">
-      <link rel="icon" href="./static/images/favicon.svg">
-    
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <script defer src="./static/js/fontawesome.all.min.js"></script>
-      <script src="./static/js/bulma-carousel.min.js"></script>
-      <script src="./static/js/bulma-slider.min.js"></script>
-      <script src="./static/js/index.js"></script>
-      <script src="https://unpkg.com/htmlincludejs"></script>
-    
-    </head>
 
-    <body>
-      <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
-      <div class="navbar-menu">
-        <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-          <a class="navbar-item" href="http://raaslab.org/">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="https://unpkg.com/htmlincludejs"></script>
+
+</head>
+
+<body>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <a class="navbar-item" href="http://raaslab.org/">
           <span class="icon">
-              <i class="fas fa-home"></i>
+            <i class="fas fa-home"></i>
           </span>
+        </a>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Table of Contents
           </a>
-    
-          <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                  Table of Contents
-                </a>
-                <div class="navbar-dropdown">
-                  <a class="navbar-item" href="#Introduction">
-                    Introduction
-                  </a>
-                  <a class="navbar-item" href="#Problem">
-                    Problem Formation
-                  </a>
-                  <a class="navbar-item" href="#Training Method">
-                    Training Methods
-                  </a>
-                  <a class="navbar-item" href="#PPO">
-                    PPO
-                  </a>
-                  <a class="navbar-item" href="#IPPO">
-                    IPPO
-                  </a>
-                  <a class="navbar-item" href="#MAPPO">
-                    MAPPO
-                  </a>
-                  <a class="navbar-item" href="#HAPPO">
-                    HAPPO
-                  </a>
-                  <a class="navbar-item" href="#Reference">
-                    Reference
-                  </a>
-                </div>
-              </div>
-        
-            </div>
-        
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#Introduction">
+              Introduction
+            </a>
+            <a class="navbar-item" href="#Problem">
+              Problem Formation
+            </a>
+            <a class="navbar-item" href="#Training Method">
+              Training Methods
+            </a>
+            <a class="navbar-item" href="#PPO">
+              PPO
+            </a>
+            <a class="navbar-item" href="#IPPO">
+              IPPO
+            </a>
+            <a class="navbar-item" href="#MAPPO">
+              MAPPO
+            </a>
+            <a class="navbar-item" href="#HAPPO">
+              HAPPO
+            </a>
+            <a class="navbar-item" href="#Reference">
+              Reference
+            </a>
           </div>
-        </nav>
+        </div>
+
+      </div>
+
+    </div>
+  </nav>
 
 
-    <section class="hero">
-      <div class="hero-body">
-        <div class="container is-max-desktop">
-          <div class="columns is-centered">
-            <div class="column has-text-centered">
-              <h1 class="title is-1 publication-title">An Ultimate Summary of PPOs in Multi-agent Reinforcement Learning</h1>
-              <div class="is-size-5 publication-authors">
-                <span class="author-block">
-                  <a href="">Chak Lam Shek</a><sup>*</sup>,</span>
-                <span class="author-block">
-                  <a href="">Amisha</a><sup>*</sup>,</span>
-                </span>
-              </div>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">An Ultimate Summary of PPOs in Multi-agent Reinforcement Learning
+            </h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="">Chak Lam Shek</a><sup>*</sup>,</span>
+              <span class="author-block">
+                <a href="">Amisha</a><sup>*</sup>,</span>
+              </span>
             </div>
           </div>
         </div>
       </div>
-    </section>
-    
-    
-    
-    <section class="hero is-light" >
-      <div class="hero-body">
+    </div>
+  </section>
+
+
+
+  <section class="hero is-light">
+    <div class="hero-body">
+      <div class="container has-text-justified">
+        <h2 class="title is-3 has-text-centered"></br><a id="Introdyction">Introduction</a></h2>
+        <p> On this website, we present a series of Proximal Policy Optimization (PPO) frameworks for Multi-Agent
+          Reinforcement Learning (MARL). We begin by offering concise summaries of the latest advancements and ongoing
+          challenges in the field of MARL. This page starts with a comprehensive overview of MARL research, followed by
+          an introducton of the Decentralized Markov Decision Process (Dec-MDP) model. Subsequently, we delve into the
+          algorithm of various PPO frameworks, offering detailed insights and guidance. </p>
+
+
         <div class="container has-text-justified">
-         <h2 class="title is-3 has-text-centered"></br><a id="Introdyction">Introduction</a></h2>
-         <p> On this website, we present a series of Proximal Policy Optimization (PPO) frameworks for Multi-Agent Reinforcement Learning (MARL). We begin by offering concise summaries of the latest advancements and ongoing challenges in the field of MARL. This page starts with a comprehensive overview of MARL research, followed by an introducton of the Decentralized  Markov Decision Process (Dec-MDP) model. Subsequently, we delve into the algorithm of various PPO frameworks, offering detailed insights and guidance. </p>
+          <h3 class="title is-4 has-text-left"></br>MARL</h3>
+          <p> MARL is a subfield within reinforcement learning (RL) that focuses on the dynamic decision-making
+            processes of multiple agents. These agents interact with their environment, seeking to learn effective
+            policies based on feedback. The interactions among these agents can be characterized as cooperative,
+            competitive, or the mixture of both.
+          </p>
+          </br>
+          <ul style="list-style-type:disc">
+            <li><b>Cooperative Tasks:</b> In cooperative settings, the primary goal of MARL is to compute an optimal
+              policy that maximizes the expected cumulative reward for the entire group of agents. This approach assumes
+              that agents collaborate and work together to achieve a common objective. The multi-agent PPO frameworks
+              are used to solve the problem in this category.</li> </br>
+            <li><b>Competitive or Mixed Tasks:</b> In competitive or mixed scenarios, the universally optimal policy
+              becomes elusive. Here, agents make decisions while considering the decisions of others, leading to complex
+              interdependencies. In such cases, the focus shifts towards identifying Nash equilibrium policies, where no
+              agent can unilaterally improve their situation given the actions of the others. These equilibrium policies
+              capture the strategic interactions among agents.
+          </ul>
+          </br>
 
-           
-           <div class="container has-text-justified">
-            <h3 class="title is-4 has-text-left"></br>MARL</h3>
-            <p> MARL is a subfield within reinforcement learning (RL) that focuses on the dynamic decision-making processes of multiple agents. These agents interact with their environment, seeking to learn effective policies based on feedback. The interactions among these agents can be characterized as cooperative, competitive, or the mixture of both.
-            </p>
-            </br>
-            <ul style="list-style-type:disc">
-                <li><b>Cooperative Tasks:</b> In cooperative settings, the primary goal of MARL is to compute an optimal policy that maximizes the expected cumulative reward for the entire group of agents. This approach assumes that agents collaborate and work together to achieve a common objective. The multi-agent PPO frameworks are used to solve the problem in this category.</li> </br>
-                <li><b>Competitive or Mixed Tasks:</b> In competitive or mixed scenarios, the universally optimal policy becomes elusive. Here, agents make decisions while considering the decisions of others, leading to complex interdependencies. In such cases, the focus shifts towards identifying Nash equilibrium policies, where no agent can unilaterally improve their situation given the actions of the others. These equilibrium policies capture the strategic interactions among agents.
-            </ul>
-            </br>
-
-           </div>
-           
-           <div class="container has-text-justified">
-            <h3 class="title is-4 has-text-left"></br>Relationship Between Decision-Making for robootics</h3>
-            <p>  MARL has a wide range of applications in wireless communication, social welfare, transportation systems, power systems, autonomous vehicles, and robotics. Particularly, in robotics, MARL can be applied into multi-robot systems [7] where robots collaborate to accomplish challenging tasks beyond the capabilities of a single agent. Common tasks include:
-            </p>
-            </br>
-            <ul style="list-style-type:disc">
-                <li> <b>Cooperative Navigation:</b> In cooperative navigation, each robot is tasked with reaching a target location while avoiding collisions with other agents. This collaborative approach ensures safe and efficient movement within complex environments. </li> </br>
-                <li> <b>Cooperative Defending: </b> The mission of cooperative defending involves protecting a target by strategically blocking potential threats or enemies. Multiple robots work together to secure the area and safeguard the objective. </li> </br>
-                <li> <b>UAV and UGV Coordination:</b> Coordination between Unmanned Aerial Vehicles (UAVs) and Unmanned Ground Vehicles (UGVs) is a popular area of research. UAVs possess high mobility, enabling them to cover areas that UGVs may find inaccessible. UGVs, on the other hand, are energy-efficient and capable of traveling longer distances. By coordinating the actions of both types of robots, the search and coverage area can be significantly enhanced.</li> </br>
-                <li> <b>Robot Joints Coordination:</b> Robot joints coordination assumes that each joint of a robotic system acts independently. In this scenario, each joint must make independent actions to control the overall movement of the robot. This level of coordination is essential for achieving precise and complex maneuvers. </li> </br>
-            </ul>
-            </br>
-            <figure>
-              <img style="width:30%" src="./static/image/mpe_simple_adversary.gif">
-              <img src="./static/image/multiwalker.gif">
-              <figcaption>Figure 1 - Simple Adversary and Multiwalker examples in pettingZoo [13]. <b>(a)</b> In Simple Adversary environment, there is 1 adversary, 2 good agents and 2 landmarks.  Good agents are rewarded based on how close the closest one of them is to the target landmark, but negatively rewarded based on how close the adversary is to the target landmark. <b>(b)</b> In Multiwalker environement, bipedal robots attempt to carry a package placed on top of them towards the right. </figcaption>
-            </figure>
-            
-           </div>
-           
-           <div class="container has-text-justified">
-            <h3 class="title is-4 has-text-left"></br>Research Areas</h3>
-            <p> Some research topics are shown in the figure 2. The topics are orginized based on their research focus. </p>
-              </br>
-            
-            <ul style="list-style-type:disc">
-                <li> <b>Frameworks:</b> The research in frameworks can be classified into two categories: <b>Centralized Training</b> and <b>Decentralized Training</b>. In Decentralized Training, each agent is trained independently based on its own local observations. This approach is known for its scalability and flexibility, offering agents a degree of autonomy in their learning processes. In contrast, Centralized Training allows agents to share their observations during the training stage.  This method is more popular due to its ability to converge towards an optimized policy. A more detailed introduction to Centralized Training will be discussed in the Method section. </li> </br>
-                <li> <b>Techniques: </b> MARL shares significant commonalities with other fields. <b>Control Theory</b> offers a framework for modeling agents' dynamic behaviors, making model-based methods valuable for more effective training. <b>Optimization Theory</b> insights guide the optimization of cost functions under various constraints. Furthermore, <b>Game Theory </b>, known for solving competitive games and finding equilibrium points, is valuable in handling the strategic interactions among agents frequently seen in MARL scenarios. This cross-disciplinary collaboration strengthens MARL by drawing from these fields, driving innovation, and improving multi-agent decision-making.</li> </br>
-                <li> <b>Application:</b>As mentioned above, MARL has been extensively researched in various application areas.</li> </br>
-                <li> <b>Exploration:</b> Exploration methods are important in the field of RL as they are designed to discover effective strategies for efficiently searching the state space while maintaining accurate value function estimates. In the context of MARL, exploration becomes even more crucial. As the number of agents grows, the state space expands exponentially, underscoring the need for efficient exploration methods. To address this challenge, researchers often employ multi-arm bandit models in MARL studies, implementing well-established approaches such as <b> UCB </b> (Upper Confidence Bound). Some other methods are designed based on different senarios, such as <b>Risk Exploration </b>, <b>Epsilon Greedy </b>, and <b> goal-oriented search </b> techniques. </li> </br>
-                <li> <b>Transfer Learning:</b> In line with RL, MARL explores the realm of transfer learning, uch as <b> Imitation Reinforcement Learning </b> and <b> Inverse RL </b>. However, MARL places a distinct emphasis on group-level transfer. Unlike the conventional approach of transferring individual policies to agents, MARL prioritizes preserving the correlation between agents, fostering collective learning and coordination.</li> </br>
-                <li> <b>Social Agent:</b> Social Agents represent a distinctive focus within MARL, aiming to emulate human social behaviors and apply them strategically to enhance policy effectiveness. For instance, humans employ concepts like <b> consensus </b> and <b> negotiation </b>, which can be adapted for use within group agents to ensure agents' policy coverage.</li> </br>
-                <li> <b>Information Sharing:</b> Information sharing is a key focus in MARL with a lot of significant research. In decentralized settings, agents often decide based on their own local information, which may not be enough to find the best solution. To improve their policies, agents are encouraged to communicate and share information. Some research in this area looks at factors like <b> relative physical distance </b> or <b> mutual information (MI) </b> in order to decide when and whom to talk to.</li> </br>
-                <li> <b>Transformers:</b> MARL often deals with complex, high-dimensional state spaces, which can be challenges for exploration and decision-making. To address this, some research suggests reducing the dimensionality of the state information. One approach involves using Transformers to perform this reduction. These Transformers typically employ <b> attention networks </b> and <b> graph networks </b> to simplify and process the state information effectively.</li> </br>
-                <li> <b>State/Reward/Q Estimation:</b> State, Reward, and Q Estimation is another crucial aspect of MARL, often with a shared interest in RL. Both MARL and single RL aim to accurately estimate the values of State/Reward/Q function to minimize <b> overestimation </b> and bias.</li> </br>
-            </ul>
-              
-            </div>
-            <div class="container has-text-justified">
-            <img src="./static/image/Slide1.png" style="vertical-align:top">
-             </div>
-            <div class="container has-text-justified">
-            <img src="./static/image/Slide2.png" style="vertical-align:top">
-             </div>
-            <div class="container has-text-justified">
-            <img src="./static/image/Slide3.png" style="vertical-align:top">
-            <p> Figure 2. Common research topics in MARL </p>
-                  </br>
-             </div>
-           
-        
         </div>
-      </div>
-    </section>
-    
-    <section class="hero" >
-      <div class="hero-body">
+
         <div class="container has-text-justified">
-         <h2 class="title is-3 has-text-centered"></br><a id="Problem">Problem Formation</a></h2>
-         <p> A common problem of MARL is formulated as Decentralized Markov Decision Process (<b>Dec-MDP</b>), an extension of the standard Markov Decision Process (MDP) Model. Dec-MDP can be described as the tuple $$ G= (N, \textbf{S},\textbf{A},P,R, \gamma ),$$</p>
-           </br>
-        <ul style="list-style-type:disc">
-             <li> Number of agents \((N)\) </li>
-             <li> States \( (\textbf{S}) = (s_1, s_2, s_3, ..., s_n) \)  is the joint state space of the agents. </li>
-             <li> Action \( (\textbf{A}) = (a_1, a_2, a_3, ..., a_n) \) is the joint action space of the agents.</li>
-             <li> Transition Probabilities \( P(\textbf{s}'|\textbf{s}, \textbf{a}) : \textbf{S} \times \textbf{A} \rightarrow \textbf{S} \) specifies the probability of transitioning from joint state \( \textbf{s} \) to state \( \textbf{s}' \) given a joint action \( \textbf{a} \) by all agents. </li>
-             <li> Reward function \( R(\textbf{s}, \textbf{a}) : \textbf{S} \times \textbf{A} \rightarrow \mathbb{R} \) defines the immediate rewards agents received for taking joint action \( \textbf{a} \) in joint state \( \textbf{s} \). </li>
-             <li> Discount factor \( (\gamma)\)
-         </ul>
+          <h3 class="title is-4 has-text-left"></br>Relationship Between Decision-Making for robootics</h3>
+          <p> MARL has a wide range of applications in wireless communication, social welfare, transportation systems,
+            power systems, autonomous vehicles, and robotics. Particularly, in robotics, MARL can be applied into
+            multi-robot systems [7] where robots collaborate to accomplish challenging tasks beyond the capabilities of
+            a single agent. Common tasks include:
+          </p>
+          </br>
+          <ul style="list-style-type:disc">
+            <li> <b>Cooperative Navigation:</b> In cooperative navigation, each robot is tasked with reaching a target
+              location while avoiding collisions with other agents. This collaborative approach ensures safe and
+              efficient movement within complex environments. </li> </br>
+            <li> <b>Cooperative Defending: </b> The mission of cooperative defending involves protecting a target by
+              strategically blocking potential threats or enemies. Multiple robots work together to secure the area and
+              safeguard the objective. </li> </br>
+            <li> <b>UAV and UGV Coordination:</b> Coordination between Unmanned Aerial Vehicles (UAVs) and Unmanned
+              Ground Vehicles (UGVs) is a popular area of research. UAVs possess high mobility, enabling them to cover
+              areas that UGVs may find inaccessible. UGVs, on the other hand, are energy-efficient and capable of
+              traveling longer distances. By coordinating the actions of both types of robots, the search and coverage
+              area can be significantly enhanced.</li> </br>
+            <li> <b>Robot Joints Coordination:</b> Robot joints coordination assumes that each joint of a robotic system
+              acts independently. In this scenario, each joint must make independent actions to control the overall
+              movement of the robot. This level of coordination is essential for achieving precise and complex
+              maneuvers. </li> </br>
+          </ul>
+          </br>
+          <figure>
+            <img style="width:30%" src="./static/image/mpe_simple_adversary.gif">
+            <img src="./static/image/multiwalker.gif">
+            <figcaption>Figure 1 - Simple Adversary and Multiwalker examples in pettingZoo [13]. <b>(a)</b> In Simple
+              Adversary environment, there is 1 adversary, 2 good agents and 2 landmarks. Good agents are rewarded based
+              on how close the closest one of them is to the target landmark, but negatively rewarded based on how close
+              the adversary is to the target landmark. <b>(b)</b> In Multiwalker environement, bipedal robots attempt to
+              carry a package placed on top of them towards the right. </figcaption>
+          </figure>
+
+        </div>
+
+        <div class="container has-text-justified">
+          <h3 class="title is-4 has-text-left"></br>Research Areas</h3>
+          <p> Some research topics are shown in the figure 2. The topics are orginized based on their research focus.
+          </p>
+          </br>
+
+          <ul style="list-style-type:disc">
+            <li> <b>Frameworks:</b> The research in frameworks can be classified into two categories: <b>Centralized
+                Training</b> and <b>Decentralized Training</b>. In Decentralized Training, each agent is trained
+              independently based on its own local observations. This approach is known for its scalability and
+              flexibility, offering agents a degree of autonomy in their learning processes. In contrast, Centralized
+              Training allows agents to share their observations during the training stage. This method is more popular
+              due to its ability to converge towards an optimized policy. A more detailed introduction to Centralized
+              Training will be discussed in the Method section. </li> </br>
+            <li> <b>Techniques: </b> MARL shares significant commonalities with other fields. <b>Control Theory</b>
+              offers a framework for modeling agents' dynamic behaviors, making model-based methods valuable for more
+              effective training. <b>Optimization Theory</b> insights guide the optimization of cost functions under
+              various constraints. Furthermore, <b>Game Theory </b>, known for solving competitive games and finding
+              equilibrium points, is valuable in handling the strategic interactions among agents frequently seen in
+              MARL scenarios. This cross-disciplinary collaboration strengthens MARL by drawing from these fields,
+              driving innovation, and improving multi-agent decision-making.</li> </br>
+            <li> <b>Application:</b>As mentioned above, MARL has been extensively researched in various application
+              areas.</li> </br>
+            <li> <b>Exploration:</b> Exploration methods are important in the field of RL as they are designed to
+              discover effective strategies for efficiently searching the state space while maintaining accurate value
+              function estimates. In the context of MARL, exploration becomes even more crucial. As the number of agents
+              grows, the state space expands exponentially, underscoring the need for efficient exploration methods. To
+              address this challenge, researchers often employ multi-arm bandit models in MARL studies, implementing
+              well-established approaches such as <b> UCB </b> (Upper Confidence Bound). Some other methods are designed
+              based on different senarios, such as <b>Risk Exploration </b>, <b>Epsilon Greedy </b>, and <b>
+                goal-oriented search </b> techniques. </li> </br>
+            <li> <b>Transfer Learning:</b> In line with RL, MARL explores the realm of transfer learning, uch as <b>
+                Imitation Reinforcement Learning </b> and <b> Inverse RL </b>. However, MARL places a distinct emphasis
+              on group-level transfer. Unlike the conventional approach of transferring individual policies to agents,
+              MARL prioritizes preserving the correlation between agents, fostering collective learning and
+              coordination.</li> </br>
+            <li> <b>Social Agent:</b> Social Agents represent a distinctive focus within MARL, aiming to emulate human
+              social behaviors and apply them strategically to enhance policy effectiveness. For instance, humans employ
+              concepts like <b> consensus </b> and <b> negotiation </b>, which can be adapted for use within group
+              agents to ensure agents' policy coverage.</li> </br>
+            <li> <b>Information Sharing:</b> Information sharing is a key focus in MARL with a lot of significant
+              research. In decentralized settings, agents often decide based on their own local information, which may
+              not be enough to find the best solution. To improve their policies, agents are encouraged to communicate
+              and share information. Some research in this area looks at factors like <b> relative physical distance
+              </b> or <b> mutual information (MI) </b> in order to decide when and whom to talk to.</li> </br>
+            <li> <b>Transformers:</b> MARL often deals with complex, high-dimensional state spaces, which can be
+              challenges for exploration and decision-making. To address this, some research suggests reducing the
+              dimensionality of the state information. One approach involves using Transformers to perform this
+              reduction. These Transformers typically employ <b> attention networks </b> and <b> graph networks </b> to
+              simplify and process the state information effectively.</li> </br>
+            <li> <b>State/Reward/Q Estimation:</b> State, Reward, and Q Estimation is another crucial aspect of MARL,
+              often with a shared interest in RL. Both MARL and single RL aim to accurately estimate the values of
+              State/Reward/Q function to minimize <b> overestimation </b> and bias.</li> </br>
+          </ul>
+
+        </div>
+        <div class="container has-text-justified">
+          <img src="./static/image/Slide1.png" style="vertical-align:top">
+        </div>
+        <div class="container has-text-justified">
+          <img src="./static/image/Slide2.png" style="vertical-align:top">
+        </div>
+        <div class="container has-text-justified">
+          <img src="./static/image/Slide3.png" style="vertical-align:top">
+          <p> Figure 2. Common research topics in MARL </p>
+          </br>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container has-text-justified">
+        <h2 class="title is-3 has-text-centered"></br><a id="Problem">Problem Formation</a></h2>
+        <p> A common problem of MARL is formulated as Decentralized Markov Decision Process (<b>Dec-MDP</b>), an
+          extension of the standard Markov Decision Process (MDP) Model. Dec-MDP can be described as the tuple $$ G= (N,
+          \textbf{S},\textbf{A},P,R, \gamma ),$$</p>
         </br>
-        <p> The objective function in MARL is defined as $$ Q(\mathbb{\tau}(t), \textbf{a}(t)) = \mathbb{E}_{\textbf{a} \sim \pi} \left[ \sum_{t=0}^{\infty} \gamma^t R(\textbf{a}(t), \textbf{s}(t)) \right] $$
-        where \( \mathbf{\tau} \) is the historical trajectory and \( Q \) is the joint Q function of all agents. Particularly, we are interested in the <b> Cooperative tasks</b> setting that which is trying to <b> maximize the objective function </b>.</p> </br>
+        <ul style="list-style-type:disc">
+          <li> Number of agents \((N)\) </li>
+          <li> States \( (\textbf{S}) = (s_1, s_2, s_3, ..., s_n) \) is the joint state space of the agents. </li>
+          <li> Action \( (\textbf{A}) = (a_1, a_2, a_3, ..., a_n) \) is the joint action space of the agents.</li>
+          <li> Transition Probabilities \( P(\textbf{s}'|\textbf{s}, \textbf{a}) : \textbf{S} \times \textbf{A}
+            \rightarrow \textbf{S} \) specifies the probability of transitioning from joint state \( \textbf{s} \) to
+            state \( \textbf{s}' \) given a joint action \( \textbf{a} \) by all agents. </li>
+          <li> Reward function \( R(\textbf{s}, \textbf{a}) : \textbf{S} \times \textbf{A} \rightarrow \mathbb{R} \)
+            defines the immediate rewards agents received for taking joint action \( \textbf{a} \) in joint state \(
+            \textbf{s} \). </li>
+          <li> Discount factor \( (\gamma)\)
+        </ul>
+        </br>
+        <p> The objective function in MARL is defined as $$ Q(\mathbb{\tau}(t), \textbf{a}(t)) = \mathbb{E}_{\textbf{a}
+          \sim \pi} \left[ \sum_{t=0}^{\infty} \gamma^t R(\textbf{a}(t), \textbf{s}(t)) \right] $$
+          where \( \mathbf{\tau} \) is the historical trajectory and \( Q \) is the joint Q function of all agents.
+          Particularly, we are interested in the <b> Cooperative tasks</b> setting that which is trying to <b> maximize
+            the objective function </b>.</p> </br>
         <p> It is essential to highlight the significant differences between MDP and Dec-MDP:</p> </br>
         <ul style="list-style-type:disc">
-            <!--<li> <b>Observability</b>  In an MDP, the environment is typically fully observable by the single agent making decisions. The agent has access to complete and accurate information about the state of the environment at each time step, simplifying decision-making. In contrast, a Dec-POMDP operates in scenarios where multiple agents interact in a shared environment. The environment's state is not fully observable to any single agent; instead, agents have <b> partial, often noisy, observations </b> of the environment. This partial observability adds complexity to the decision-making process.</li> </br> -->
-            <li> <b>Decentralization Decision Making</b> Dec-MDPs involve multiple agents, each with its own objectives <!--and partial observations -->. Importantly, these agents make decisions independently based on the state <!--their local observations --> and objectives. While they act independently, the actions taken by one agent can still indirectly influence decisions of other agents within the shared environment.</li> </br>
+          <!--<li> <b>Observability</b>  In an MDP, the environment is typically fully observable by the single agent making decisions. The agent has access to complete and accurate information about the state of the environment at each time step, simplifying decision-making. In contrast, a Dec-POMDP operates in scenarios where multiple agents interact in a shared environment. The environment's state is not fully observable to any single agent; instead, agents have <b> partial, often noisy, observations </b> of the environment. This partial observability adds complexity to the decision-making process.</li> </br> -->
+          <li> <b>Decentralization Decision Making</b> Dec-MDPs involve multiple agents, each with its own objectives
+            <!--and partial observations -->. Importantly, these agents make decisions independently based on the state
+            <!--their local observations --> and objectives. While they act independently, the actions taken by one
+            agent can still indirectly influence decisions of other agents within the shared environment.
+          </li> </br>
         </ul>
-        </div>
       </div>
-    </section>
-    
-    <section class="hero is-light" >
-      <div class="hero-body">
-        <div class="container has-text-justified">
-         <h2 class="title is-3 has-text-centered"></br><a id="Training Method">Training Methods</a></h2>
-         <p> Many different frameworks have been proposed to solve the Dec-MDP problem. Here, we will focus on the <b> Centralized Training and Decentralized excitation (CTDE) </b> method. CTDE methods operate under the assumption that global observations can be shared during the training phase, while decision-making occurs locally and independently for each agent during execution.  </p>
-           </br>
-         <p> <b> Value-Decomposition Networks (VDN) </b> [12] stands as one of the pioneering frameworks to propose CTDE methods. It suggests that the joint Q function can be effectively decomposed into individual Q functions for each agent through credit assignment. $$ Q(\mathbb{\tau}(t), \textbf{a}(t)) = \sum_i^N Q_i(\tau_i(t), a_i(t)) $$ VDN laid the foundation for subsequent advancements in this area. Building upon VDN, the Qmix [9] framework has enhanced the performance by adding the mixer for credit assignment. Using mixer for credit assignment can perform more accurate approximation of the joint Q function. Therefore, <b> Qmix </b> is notable for its ability to guarantee an optimal policy, if the target Q function follows a monotonic function. Qmix framework also has a series of extensions and variations, such as WQmix. Another noteworthy approach is <b> Multi-Agent Deep Deterministic Policy Gradients (MADDPG) </b> [10], an Actor-Critic method designed explicitly for MARL. While these CTDE methods have made significant strides in addressing Dec-MDP challenges, it is essential to recognize that the landscape of MARL is continuously evolving. In this website, our focus will be on exploring a range of multi-agent PPO frameworks, which offer an alternative perspective for tackling multi-agent decision-making.
+    </div>
+  </section>
 
-        </div>
+  <section class="hero is-light">
+    <div class="hero-body">
+      <div class="container has-text-justified">
+        <h2 class="title is-3 has-text-centered"></br><a id="Training Method">Training Methods</a></h2>
+        <p> Many different frameworks have been proposed to solve the Dec-MDP problem. Here, we will focus on the <b>
+            Centralized Training and Decentralized excitation (CTDE) </b> method. CTDE methods operate under the
+          assumption that global observations can be shared during the training phase, while decision-making occurs
+          locally and independently for each agent during execution. </p>
+        </br>
+        <p> <b> Value-Decomposition Networks (VDN) </b> [12] stands as one of the pioneering frameworks to propose CTDE
+          methods. It suggests that the joint Q function can be effectively decomposed into individual Q functions for
+          each agent through credit assignment. $$ Q(\mathbb{\tau}(t), \textbf{a}(t)) = \sum_i^N Q_i(\tau_i(t), a_i(t))
+          $$ VDN laid the foundation for subsequent advancements in this area. Building upon VDN, the Qmix [9] framework
+          has enhanced the performance by adding the mixer for credit assignment. Using mixer for credit assignment can
+          perform more accurate approximation of the joint Q function. Therefore, <b> Qmix </b> is notable for its
+          ability to guarantee an optimal policy, if the target Q function follows a monotonic function. Qmix framework
+          also has a series of extensions and variations, such as WQmix. Another noteworthy approach is <b> Multi-Agent
+            Deep Deterministic Policy Gradients (MADDPG) </b> [10], an Actor-Critic method designed explicitly for MARL.
+          While these CTDE methods have made significant strides in addressing Dec-MDP challenges, it is essential to
+          recognize that the landscape of MARL is continuously evolving. In this website, our focus will be on exploring
+          a range of multi-agent PPO frameworks, which offer an alternative perspective for tackling multi-agent
+          decision-making.
+
       </div>
-    </section>
-    
-    
-    
-    <section class="hero" >
-      <div class="hero-body">
-        <div class="container has-text-justified">
-         <h2 class="title is-3 has-text-centered"></br><a id="PPO">PPO</a></h2>
-         <p>  In the subsequent sections, we introduce the evolution and development of PPO frameworks for MARL. This summary is provided in the table I [14].</p>
-           </br>
-        </div>
-        <table style="width:80%" class="is-max-desktop" align="center" cellpadding="10" cellspacing="10">
+    </div>
+  </section>
+
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container has-text-justified">
+        <h2 class="title is-3 has-text-centered"></br><a id="PPO">PPO</a></h2>
+        <p> In the subsequent sections, we introduce the evolution and development of PPO frameworks for MARL. This
+          summary is provided in the table I [14].</p>
+        </br>
+      </div>
+      <table style="width:80%" class="is-max-desktop" align="center" cellpadding="10" cellspacing="10">
         <thead class="is-8">
           <tr style="text-align: left">
             <th>Framework</th>
@@ -286,129 +389,212 @@
             <td>Sequential</td>
             <td>Centralized</td>
           </tr>
-          
-        </thead>
-        </table>
-        
+
+          </thead>
+      </table>
+
       </br>
-        <div class="container has-text-justified">
-          <p> PPO framework, introduced by OpenAI in 2017 [2], stands as a leading RL. PPO is an approximated version of the Trust Region Policy Optimization (TRPO) [1] approach. TRPO is trying to maximize an objective function under the constraints:
-          
-                $$ \max_\theta \mathbb{E} \left[ \frac{\pi_\theta (a_t|s_t)}{\pi_{\theta_{  \text{old}   }}(a_t|s_t)} \hat{A}_t \right]  \tag{1}$$
-                $$\text{subject to} \mathbb{E}  \left[ \text{KL} \left[ \pi_{\theta_{  \text{old}   }}   (\cdot|s_t)  , \pi_\theta(\cdot|s_t) \right]  \right] \leq \delta$$
-          
-              where \( \hat{A} \) is the advantage function, \( \theta_{\text{old}}\) is the vector of policy parameters before the update, \( \theta\) is the vector of policy parameters after the update and  \( KL \) stands for Kullback–Leibler divergence. This optimization problem is trying to find the optimal parameters that can maximize the objective function without changing the policy a lot. Instead of using the advantage function alone, the objective function is designed to take account the distribution difference between old policy and new policy as this is the most simple method to compare the two policies. To ensure policy stability across iterations, TRPO employs KL divergence to limit the statistical distance between policies to be less than \( \delta \). The reason of it is to mitigate the aggressive shifts in policy gradients that can lead to unpredictable policy updates, allowing for a gradual refinement of the policy. <p> </br>
-              
-            <p>While TRPO offers the <b>Monotonic Improvement Guarantee </b>, ie. \(J(\pi_{k+1}) \geq J(\pi_k) \) for all \( k \in \mathbb{N} \), assuring that each policy update leads to improvement, it encounters difficulties in directly addressing the constrained optimization problem. This challenge comes from the complexity of computing the KL divergence. Consequently, PPO proposes an approximation to tackle this optimization problem.
-            $$ L(\theta) = \mathbb{E} \left[  \min(r_t(\theta)\hat{A}_t, clip(r_t(\theta), 1 - \epsilon, 1+\epsilon) \hat{A}_t) \right] \tag{2}$$
-          
-            where \( clip \) function ensures the reward staying within the interval \([ 1 - \epsilon, 1 + \epsilon] \). This method removes the necessary of computing KL divergence.
-          </p> </br>
-            <img src="./static/image/PPO.png" style="width:60%">
-        </div>
-      </div>
-    </section>
-    
-    <section class="hero is-light" >
-      <div class="hero-body">
-        <div class="container has-text-justified">
-         <h2 class="title is-3 has-text-centered"></br><a id="IPPO">IPPO</a></h2>
-         <p> IPPO is a multi-agent version of PPO where each agent learns an independent policy based only on its own observations. The key aspects of IPPO are:</p> <ul> <li>Each agent a has its own local policy π<sub>a</sub> and critic V<sub>φ</sub>(z<sub>a</sub><sub>t</sub>) </li> <li>The local policy loss for each agent a is: <img src="ippo_equation.png"> </li> <li>Where A<sub>a</sub><sub>t</sub> is the advantage function computed using the global reward signal</li> <li>The min term implements PPO's clipped probability ratio</li> <li>Network parameters are shared between the decentralized policies and critics</li> </ul> <p>Despite learning fully decentralized policies, IPPO shows strong performance compared to methods that learn centralized policies. Its main benefits are:</p> <ul> <li>Decentralized execution allows for distributed training and execution</li> <li>Avoids the joint action space explosion faced by centralized methods</li> <li>PPO's policy clipping provides learning stability</li> </ul> <p>IPPO demonstrates that independent learning can achieve excellent results in multi-agent tasks, without needing joint action-value functions. </p>
-           </br>
+      <div class="container has-text-justified">
+        <p> PPO framework, introduced by OpenAI in 2017 [2], stands as a leading RL. PPO is an approximated version of
+          the Trust Region Policy Optimization (TRPO) [1] approach. TRPO is trying to maximize an objective function
+          under the constraints:
 
-        </div>
-      </div>
-    </section>
-    
-    
-    <section class="hero " >
-      <div class="hero-body">
-        <div class="container has-text-justified">
-         <h2 class="title is-3 has-text-centered"></br><a id="MAPPO">MAPPO</a></h2>
-         <p>  </p>
-           </br>
+          $$ \max_\theta \mathbb{E} \left[ \frac{\pi_\theta (a_t|s_t)}{\pi_{\theta_{ \text{old} }}(a_t|s_t)} \hat{A}_t
+          \right] \tag{1}$$
+          $$\text{subject to} \mathbb{E} \left[ \text{KL} \left[ \pi_{\theta_{ \text{old} }} (\cdot|s_t) ,
+          \pi_\theta(\cdot|s_t) \right] \right] \leq \delta$$
 
-        </div>
+          where \( \hat{A} \) is the advantage function, \( \theta_{\text{old}}\) is the vector of policy parameters
+          before the update, \( \theta\) is the vector of policy parameters after the update and \( KL \) stands for
+          Kullback–Leibler divergence. This optimization problem is trying to find the optimal parameters that can
+          maximize the objective function without changing the policy a lot. Instead of using the advantage function
+          alone, the objective function is designed to take account the distribution difference between old policy and
+          new policy as this is the most simple method to compare the two policies. To ensure policy stability across
+          iterations, TRPO employs KL divergence to limit the statistical distance between policies to be less than \(
+          \delta \). The reason of it is to mitigate the aggressive shifts in policy gradients that can lead to
+          unpredictable policy updates, allowing for a gradual refinement of the policy.
+        <p> </br>
+
+        <p>While TRPO offers the <b>Monotonic Improvement Guarantee </b>, ie. \(J(\pi_{k+1}) \geq J(\pi_k) \) for all \(
+          k \in \mathbb{N} \), assuring that each policy update leads to improvement, it encounters difficulties in
+          directly addressing the constrained optimization problem. This challenge comes from the complexity of
+          computing the KL divergence. Consequently, PPO proposes an approximation to tackle this optimization problem.
+          $$ L(\theta) = \mathbb{E} \left[ \min(r_t(\theta)\hat{A}_t, clip(r_t(\theta), 1 - \epsilon, 1+\epsilon)
+          \hat{A}_t) \right] \tag{2}$$
+
+          where \( clip \) function ensures the reward staying within the interval \([ 1 - \epsilon, 1 + \epsilon] \).
+          This method removes the necessary of computing KL divergence.
+        </p> </br>
+        <img src="./static/image/PPO.png" style="width:60%">
       </div>
-    </section>
-    
-    <section class="hero is-light" >
-      <div class="hero-body">
-        <div class="container has-text-justified">
-         <h2 class="title is-3 has-text-centered"></br><a id="HAPPO">HAPPO</a></h2>
-         <p> While IPPO and MAPPO have demonstrated promising results in simulation environments, they also come with certain limitations. A notable constraint is that both MAPPO and IPPO require identical action spaces for all agents and the enforcement of parameter sharing \( \theta_i = \theta_j \) for all \( i,j \in \mathbb{N} \). This requirement causes it failing to maintain of the monotonic improvement guarantee, potentially leading to sub-optimal solutions. </p>
-           </br>
-         <p> An improvement suggested by HAPPO [5] involves leveraging the decomposition of the joint advantage function into individual advantage functions. This method requires agents to follow an arbitrary order, denoted as \(1:N\). Agents update their policy sequentially one by one using the loss function (2) from PPO using the decomposed advantage function. The total advantage function can then be decomposed using the equation $$A_\pi^{1:N} = \sum_{j=1}^N A_\pi^{j}(s, \textbf{a}^{{1:j-1}},a^{j}) \tag{n} $$
-            
-             where \( A_\pi^{j} \) represents the indivaul advantage function of agent \(j\). The advantage function of each agent depends on the actions taken by agents \(1\) through \(j-1\). Importantly, as each agent has its own advantage function, there is no need to share policy parameters. Moreover,  this framework operates under the assumption that the advantage function must consistently maintain a value greater than or equal to zero. With this framework, agents can always maximize the cooperative performance by selecting actions that maximize the indivual advantage function,  as expressed by the equation: $$ \max_{a} A_\pi^{j}(s, \textbf{a}^{{1:j-1}},a^{j}), \forall j \tag{n}.$$ As the first agent's action is solely determined by the state \( s_t \), the policy of the first agent must be unchanged for a given state. Consequently, the second agent can learn the policy pattern of the first agent during sequential training, crafting its own policy that also exclusively relies on the state \( s_t \). This progressive learning extends across all agents, leading to the development of policies \( \pi_i (a_t|s_t), \forall  i \)  that depend exclusively on the current state \( s_t \).  Hence, the paper also proves that HAPPO maintains the  monotonic improvement property, ie. \(J(\pi_{k+1}) \geq J(\pi_k) \) for all \( k \in \mathbb{N} \).
+    </div>
+  </section>
+
+  <section class="hero is-light">
+    <div class="hero-body">
+      <div class="container has-text-justified">
+        <h2 class="title is-3 has-text-centered"></br><a id="IPPO">IPPO</a></h2>
+        <p> IPPO is a multi-agent version of PPO where each agent learns an independent policy based only on its own
+          observations. The key aspects of IPPO are:</p>
+        <ul>
+          <li>Each agent a has its own local policy π<sub>a</sub> and critic V<sub>φ</sub>(z<sub>a</sub><sub>t</sub>)
+          </li>
+          <li>The local policy loss for each agent a is: <img src="./static/image/IPPO.png" style="width:60%"></li>
+          <li>Where A<sub>a</sub><sub>t</sub> is the advantage function computed using the global reward signal</li>
+          <li>The min term implements PPO's clipped probability ratio</li>
+          <li>Network parameters are shared between the decentralized policies and critics</li>
+        </ul>
+        <p>Despite learning fully decentralized policies, IPPO shows strong performance compared to methods that learn
+          centralized policies. Its main benefits are:</p>
+        <ul>
+          <li>Decentralized execution allows for distributed training and execution</li>
+          <li>Avoids the joint action space explosion faced by centralized methods</li>
+          <li>PPO's policy clipping provides learning stability</li>
+        </ul>
+        <p>IPPO demonstrates that independent learning can achieve excellent results in multi-agent tasks, without
+          needing joint action-value functions. </p>
+        </br>
+
+      </div>
+    </div>
+  </section>
+
+
+  <section class="hero ">
+    <div class="hero-body">
+      <div class="container has-text-justified">
+        <h2 class="title is-3 has-text-centered"></br><a id="MAPPO">MAPPO</a></h2>
+        <p> </p>
+        </br>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-light">
+    <div class="hero-body">
+      <div class="container has-text-justified">
+        <h2 class="title is-3 has-text-centered"></br><a id="HAPPO">HAPPO</a></h2>
+        <p> While IPPO and MAPPO have demonstrated promising results in simulation environments, they also come with
+          certain limitations. A notable constraint is that both MAPPO and IPPO require identical action spaces for all
+          agents and the enforcement of parameter sharing \( \theta_i = \theta_j \) for all \( i,j \in \mathbb{N} \).
+          This requirement causes it failing to maintain of the monotonic improvement guarantee, potentially leading to
+          sub-optimal solutions. </p>
+        </br>
+        <p> An improvement suggested by HAPPO [5] involves leveraging the decomposition of the joint advantage function
+          into individual advantage functions. This method requires agents to follow an arbitrary order, denoted as
+          \(1:N\). Agents update their policy sequentially one by one using the loss function (2) from PPO using the
+          decomposed advantage function. The total advantage function can then be decomposed using the equation
+          $$A_\pi^{1:N} = \sum_{j=1}^N A_\pi^{j}(s, \textbf{a}^{{1:j-1}},a^{j}) \tag{n} $$
+
+          where \( A_\pi^{j} \) represents the indivaul advantage function of agent \(j\). The advantage function of
+          each agent depends on the actions taken by agents \(1\) through \(j-1\). Importantly, as each agent has its
+          own advantage function, there is no need to share policy parameters. Moreover, this framework operates under
+          the assumption that the advantage function must consistently maintain a value greater than or equal to zero.
+          With this framework, agents can always maximize the cooperative performance by selecting actions that maximize
+          the indivual advantage function, as expressed by the equation: $$ \max_{a} A_\pi^{j}(s,
+          \textbf{a}^{{1:j-1}},a^{j}), \forall j \tag{n}.$$ As the first agent's action is solely determined by the
+          state \( s_t \), the policy of the first agent must be unchanged for a given state. Consequently, the second
+          agent can learn the policy pattern of the first agent during sequential training, crafting its own policy that
+          also exclusively relies on the state \( s_t \). This progressive learning extends across all agents, leading
+          to the development of policies \( \pi_i (a_t|s_t), \forall i \) that depend exclusively on the current state
+          \( s_t \). Hence, the paper also proves that HAPPO maintains the monotonic improvement property, ie.
+          \(J(\pi_{k+1}) \geq J(\pi_k) \) for all \( k \in \mathbb{N} \).
         </p>
-           </br>
-         <p> HAPPO has numerous extension works, including Multi-Agent Transformer (MAT) [6] and Heterogeneous-Agent Trust Region Learning (HATRL) [8]. MAT focuses on encoding joint observations into a lower-dimensional space, enhancing the sequential action selection for each agent. HATRL [8] provides theototical anlysis of general HAPPO and HATRPO and shows Nash equilibrium guarentee.
-           </br> </p>   </br>
-           <img src="./static/image/HAPPO.png" style="width:60%">
-        </div>
+        </br>
+        <p> HAPPO has numerous extension works, including Multi-Agent Transformer (MAT) [6] and Heterogeneous-Agent
+          Trust Region Learning (HATRL) [8]. MAT focuses on encoding joint observations into a lower-dimensional space,
+          enhancing the sequential action selection for each agent. HATRL [8] provides theototical anlysis of general
+          HAPPO and HATRPO and shows Nash equilibrium guarentee.
+          </br> </p> </br>
+        <img src="./static/image/HAPPO.png" style="width:60%">
       </div>
-    </section>
-    
+    </div>
+  </section>
 
-    
-    <section class="section">
-      <div class="container is-max-desktop">
-        <!-- Concurrent Work. -->
-        <div class="columns is-centered">
-          <div class="column is-full-width">
-            <h2 class="title is-3"><a id="Reference">Reference</a></h2>
 
-            <div class="content has-text-justified">
-              <p>
-                [1]<a href="https://arxiv.org/pdf/1502.05477.pdf">Trust Region Policy Optimization</a>. John Schulman, Sergey Levine, Philipp Moritz, Michael I. Jordan, Pieter Abbeel. ICML. 2015
-              </p>
-              <p>
-                [2]<a href="https://arxiv.org/pdf/1707.06347.pdf">Proximal Policy Optimization Algorithms</a>. John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, Oleg Klimov. OpenAI 2017.
-              </p>
 
-              <p>
-                [3]<a href="https://arxiv.org/pdf/2011.09533.pdf">Is Independent Learning All You Need in the StarCraft Multi-Agent Challenge?</a>. Christian Schroeder de Witt, Tarun Gupta, Denys Makoviichuk, Viktor Makoviychuk, Philip H.S. Torr, Mingfei Sun, Shimon Whiteson. 2020
-              </p>
-              <p>
-                [4]<a href="https://arxiv.org/pdf/2103.01955.pdf">The Surprising Effectiveness of PPO in Cooperative Multi-Agent Game</a>. Chao Yu, Akash Velu, Eugene Vinitsky, Jiaxuan Gao, Yu Wang, Alexandre Bayen, Yi Wu. NeurlPS 2022
-              </p>
-              <p>
-                [5]<a href="https://arxiv.org/pdf/2109.11251.pdf">TRUST REGION POLICY OPTIMISATION IN MULTI-AGENT REINFORCEMENT LEARNING</a>. Jakub Grudzien Kuba, Ruiqing Chen, Muning Wen, Ying Wen, Fanglei Sun, Jun Wang, Yaodong Yang. ICRL 2022.
-              </p>
-              <p>
-                [6]<a href="https://arxiv.org/pdf/2205.14953.pdf">Multi-Agent Reinforcement Learning is A Sequence Modeling Problem</a>. Muning Wen, Jakub Grudzien Kuba, Runji Lin, Weinan Zhang, Ying Wen, Jun Wang, Yaodong Yang. 2022.
-              </p>
-              <p>
-                [7]<a href="https://arxiv.org/pdf/2203.11653.pdf">Transferring Multi-Agent Reinforcement Learning Policies for Autonomous Driving using Sim-to-Real</a>. Eduardo Candela, Leandro Parada, Luis Marques, Tiberiu-Andrei Georgescu, Yiannis Demiris, Panagiotis Angeloudis. 2022.
-              </p>
-              <p>
-                [8]<a href="https://arxiv.org/pdf/2304.09870.pdf">Heterogeneous-Agent Reinforcement Learning</a>. Yifan Zhong, Jakub Grudzien Kuba, Siyi Hu, Jiaming Ji, Yaodong Yang. 2023.
-              </p>
-              <p>
-                [9]<a href="https://arxiv.org/pdf/1803.11485.pdf">QMIX: Monotonic Value Function Factorisation for Deep Multi-Agent Reinforcement Learning</a>. Tabish Rashid, Mikayel Samvelyan, Christian Schroeder de Witt, Gregory Farquhar, Jakob Foerster, Shimon Whiteson. ICML 2018.
-              </p>
-              <p>
-                [10]<a href="https://arxiv.org/pdf/1706.02275.pdf">Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments</a>. Ryan Lowe, Yi Wu, Aviv Tamar, Jean Harb, Pieter Abbeel, Igor Mordatch. 2020.
-              </p>
-              <p>
-                [11]<a href="https://web.media.mit.edu/~cynthiab/Readings/tan-MAS-reinfLearn.pdf">Multi-Agent Reinforcement Learning: Independent vs. Coop erative Agents</a>. Ming Tan.
-              </p>
-              <p>
-                [12]<a href="https://arxiv.org/pdf/1706.05296.pdf">Value-Decomposition Networks For Cooperative Multi-Agent Learning</a>. Peter Sunehag, Guy Lever, Audrunas Gruslys, Wojciech Marian Czarnecki, Vinicius Zambaldi, Max Jaderberg, Marc Lanctot, Nicolas Sonnerat, Joel Z. Leibo, Karl Tuyls, Thore Graepel. 2017.
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Concurrent Work. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3"><a id="Reference">Reference</a></h2>
 
-              </p>
-              <p>
-                [13]<a href="https://pettingzoo.farama.org/content/basic_usage/">PettingZoo</a>.
-              </p>
-              <p>
-                [14]<a href="https://arxiv.org/pdf/2309.12951.pdf">Boosting Studies of Multi-Agent Reinforcement Learning on Google Research Football Environment: the Past, Present, and Future. </a>Yan Song, He Jiang, Haifeng Zhang, Zheng Tian, Weinan Zhang, Jun Wang. 2023.
-              </p>
-            </div>
+          <div class="content has-text-justified">
+            <p>
+              [1]<a href="https://arxiv.org/pdf/1502.05477.pdf">Trust Region Policy Optimization</a>. John Schulman,
+              Sergey Levine, Philipp Moritz, Michael I. Jordan, Pieter Abbeel. ICML. 2015
+            </p>
+            <p>
+              [2]<a href="https://arxiv.org/pdf/1707.06347.pdf">Proximal Policy Optimization Algorithms</a>. John
+              Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, Oleg Klimov. OpenAI 2017.
+            </p>
+
+            <p>
+              [3]<a href="https://arxiv.org/pdf/2011.09533.pdf">Is Independent Learning All You Need in the StarCraft
+                Multi-Agent Challenge?</a>. Christian Schroeder de Witt, Tarun Gupta, Denys Makoviichuk, Viktor
+              Makoviychuk, Philip H.S. Torr, Mingfei Sun, Shimon Whiteson. 2020
+            </p>
+            <p>
+              [4]<a href="https://arxiv.org/pdf/2103.01955.pdf">The Surprising Effectiveness of PPO in Cooperative
+                Multi-Agent Game</a>. Chao Yu, Akash Velu, Eugene Vinitsky, Jiaxuan Gao, Yu Wang, Alexandre Bayen, Yi
+              Wu. NeurlPS 2022
+            </p>
+            <p>
+              [5]<a href="https://arxiv.org/pdf/2109.11251.pdf">TRUST REGION POLICY OPTIMISATION IN MULTI-AGENT
+                REINFORCEMENT LEARNING</a>. Jakub Grudzien Kuba, Ruiqing Chen, Muning Wen, Ying Wen, Fanglei Sun, Jun
+              Wang, Yaodong Yang. ICRL 2022.
+            </p>
+            <p>
+              [6]<a href="https://arxiv.org/pdf/2205.14953.pdf">Multi-Agent Reinforcement Learning is A Sequence
+                Modeling Problem</a>. Muning Wen, Jakub Grudzien Kuba, Runji Lin, Weinan Zhang, Ying Wen, Jun Wang,
+              Yaodong Yang. 2022.
+            </p>
+            <p>
+              [7]<a href="https://arxiv.org/pdf/2203.11653.pdf">Transferring Multi-Agent Reinforcement Learning Policies
+                for Autonomous Driving using Sim-to-Real</a>. Eduardo Candela, Leandro Parada, Luis Marques,
+              Tiberiu-Andrei Georgescu, Yiannis Demiris, Panagiotis Angeloudis. 2022.
+            </p>
+            <p>
+              [8]<a href="https://arxiv.org/pdf/2304.09870.pdf">Heterogeneous-Agent Reinforcement Learning</a>. Yifan
+              Zhong, Jakub Grudzien Kuba, Siyi Hu, Jiaming Ji, Yaodong Yang. 2023.
+            </p>
+            <p>
+              [9]<a href="https://arxiv.org/pdf/1803.11485.pdf">QMIX: Monotonic Value Function Factorisation for Deep
+                Multi-Agent Reinforcement Learning</a>. Tabish Rashid, Mikayel Samvelyan, Christian Schroeder de Witt,
+              Gregory Farquhar, Jakob Foerster, Shimon Whiteson. ICML 2018.
+            </p>
+            <p>
+              [10]<a href="https://arxiv.org/pdf/1706.02275.pdf">Multi-Agent Actor-Critic for Mixed
+                Cooperative-Competitive Environments</a>. Ryan Lowe, Yi Wu, Aviv Tamar, Jean Harb, Pieter Abbeel, Igor
+              Mordatch. 2020.
+            </p>
+            <p>
+              [11]<a href="https://web.media.mit.edu/~cynthiab/Readings/tan-MAS-reinfLearn.pdf">Multi-Agent
+                Reinforcement Learning: Independent vs. Coop erative Agents</a>. Ming Tan.
+            </p>
+            <p>
+              [12]<a href="https://arxiv.org/pdf/1706.05296.pdf">Value-Decomposition Networks For Cooperative
+                Multi-Agent Learning</a>. Peter Sunehag, Guy Lever, Audrunas Gruslys, Wojciech Marian Czarnecki,
+              Vinicius Zambaldi, Max Jaderberg, Marc Lanctot, Nicolas Sonnerat, Joel Z. Leibo, Karl Tuyls, Thore
+              Graepel. 2017.
+
+            </p>
+            <p>
+              [13]<a href="https://pettingzoo.farama.org/content/basic_usage/">PettingZoo</a>.
+            </p>
+            <p>
+              [14]<a href="https://arxiv.org/pdf/2309.12951.pdf">Boosting Studies of Multi-Agent Reinforcement Learning
+                on Google Research Football Environment: the Past, Present, and Future. </a>Yan Song, He Jiang, Haifeng
+              Zhang, Zheng Tian, Weinan Zhang, Jun Wang. 2023.
+            </p>
           </div>
         </div>
-
       </div>
-    </section>
-    </body>
+
+    </div>
+  </section>
+</body>
+
 </html>
