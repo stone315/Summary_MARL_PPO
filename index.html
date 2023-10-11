@@ -135,7 +135,7 @@
         <p> On this website, we present a series of Proximal Policy Optimization (PPO) frameworks for Multi-Agent
           Reinforcement Learning (MARL). We begin by offering concise summaries of the latest advancements and ongoing
           challenges in the field of MARL. This page starts with a comprehensive overview of MARL research, followed by
-          an introducton of the Decentralized Markov Decision Process (Dec-MDP) model. Subsequently, we delve into the
+          an introducton of the Decentralized Markov Decision Process (Dec-MDP) and Decentralized Partially Observable Markov Decision Process (Dec-POMDP) model. Subsequently, we delve into the
           algorithm of various PPO frameworks, offering detailed insights and guidance. </p>
 
 
@@ -277,10 +277,10 @@
     <div class="hero-body">
       <div class="container has-text-justified">
         <h2 class="title is-3 has-text-centered"></br><a id="Problem">Problem Formation</a></h2>
+        <h3 class="title is-4 has-text-left"></br>Dec-MDP</h3>
         <p> A common problem of MARL is formulated as Decentralized Markov Decision Process (<b>Dec-MDP</b>), an
           extension of the standard Markov Decision Process (MDP) Model. Dec-MDP can be described as the tuple $$ G= (N,
           \textbf{S},\textbf{A},P,R, \gamma ),$$</p>
-        </br>
         <ul style="list-style-type:disc">
           <li> Number of agents \((N)\) </li>
           <li> States \( (\textbf{S}) = (s_1, s_2, s_3, ..., s_n) \) is the joint state space of the agents. </li>
@@ -294,11 +294,6 @@
           <li> Discount factor \( (\gamma)\)
         </ul>
         </br>
-        <p> The objective function in MARL is defined as $$ Q(\mathbb{\tau}(t), \textbf{a}(t)) = \mathbb{E}_{\textbf{a}
-          \sim \pi} \left[ \sum_{t=0}^{\infty} \gamma^t R(\textbf{a}(t), \textbf{s}(t)) \right] $$
-          where \( \mathbf{\tau} \) is the historical trajectory and \( Q \) is the joint Q function of all agents.
-          Particularly, we are interested in the <b> Cooperative tasks</b> setting that which is trying to <b> maximize
-            the objective function </b>.</p> </br>
         <p> It is essential to highlight the significant differences between MDP and Dec-MDP:</p> </br>
         <ul style="list-style-type:disc">
           <!--<li> <b>Observability</b>  In an MDP, the environment is typically fully observable by the single agent making decisions. The agent has access to complete and accurate information about the state of the environment at each time step, simplifying decision-making. In contrast, a Dec-POMDP operates in scenarios where multiple agents interact in a shared environment. The environment's state is not fully observable to any single agent; instead, agents have <b> partial, often noisy, observations </b> of the environment. This partial observability adds complexity to the decision-making process.</li> </br> -->
@@ -306,8 +301,33 @@
             <!--and partial observations -->. Importantly, these agents make decisions independently based on the state
             <!--their local observations --> and objectives. While they act independently, the actions taken by one
             agent can still indirectly influence decisions of other agents within the shared environment.
-          </li> </br>
+          </li>
         </ul>
+
+        <h3 class="title is-4 has-text-left"></br>Dec-POMDP</h3>
+        
+        <p>An other extension of Dec-MDP is Decentralized Partially Observable Markov Decision Process <b>(Dec-POMDP)</b> which considers all agents are partially observable. The tuple is defined as $$ G= (N, \textbf{S},\textbf{A},P,R, \Omega, \textbf{O}, \gamma ),$$</p>
+        <ul style="list-style-type:disc">
+          <li> Observation space \((\Omega\)) </li>
+          <li> Obervation probabilities \(( \textbf{O}) \) defines the observation model for each agent, which specifies the probability of receiving observation when taking joint action \( \textbf{a} \) by all agents in the joint state \( \textbf{s} \). </li>
+        </ul></br>
+
+        <p>The difference between Dec-MDP and Dec-POMDP is:</p></br>
+
+        <ul style="list-style-type:disc">
+          <li> <b>Observability</b>  In an Dec-MDP, the environment is typically fully observable by the single agent making decisions. The agent has access to complete and accurate information about the state of the environment at each time step, simplifying decision-making. In contrast, a Dec-POMDP operates in scenarios where multiple agents interact in a shared environment. The environment's state is not fully observable to any single agent; instead, agents have <b> partial, often noisy, observations </b> of the environment. This partial observability adds complexity to the decision-making process.</li>
+          
+        </ul>
+
+        <h3 class="title is-4 has-text-left"></br>Objective Function</h3>
+        <p> The objective function in MARL is defined as $$ Q(\mathbb{\tau}(t), \textbf{a}(t)) = \mathbb{E}_{\textbf{a}
+          \sim \pi} \left[ \sum_{t=0}^{\infty} \gamma^t R(\textbf{a}(t), \textbf{s}(t)) \right] $$
+          where \( \mathbf{\tau} \) is the historical trajectory and \( Q \) is the joint Q function of all agents.
+          Particularly, we are interested in the <b> Cooperative tasks</b> setting that which is trying to <b> maximize
+            the objective function </b>.</p> </br>
+        
+
+        
       </div>
     </div>
   </section>
@@ -316,7 +336,7 @@
     <div class="hero-body">
       <div class="container has-text-justified">
         <h2 class="title is-3 has-text-centered"></br><a id="Training Method">Training Methods</a></h2>
-        <p> Many different frameworks have been proposed to solve the Dec-MDP problem. Here, we will focus on the <b>
+        <p> Many different frameworks have been proposed to solve the Dec-MDP and Dec-POMDP problem. Here, we will focus on the <b>
             Centralized Training and Decentralized excitation (CTDE) </b> method. CTDE methods operate under the
           assumption that global observations can be shared during the training phase, while decision-making occurs
           locally and independently for each agent during execution. </p>
@@ -434,7 +454,7 @@
     <div class="hero-body">
       <div class="container has-text-justified">
         <h2 class="title is-3 has-text-centered"></br><a id="IPPO">IPPO</a></h2>
-        <p> IPPO is a multi-agent version of PPO where each agent learns an independent policy based only on its own
+        <p> IPPO is a multi-agent version of PPO where each agent directly use PPO to learns an independent policy based only on its own
           observations. </p>
         </br>
         <h3 class="title is-4 has-text-left">Key Aspects</h3>
@@ -450,7 +470,7 @@
         <p>Despite learning fully decentralized policies, IPPO shows strong performance compared to methods that learn
           centralized policies.</p> </br>
         <ul style="list-style-type:disc">
-          <li>Decentralized execution allows for distributed training and execution</li> </br>
+          <li>Decentralized execution allows for <b>distributed training and execution (DTDE) </b></li> </br>
           <li>Avoids the joint action space explosion faced by centralized methods</li>  </br>
           <li>PPO's policy clipping provides learning stability</li> </br>
         </ul>
@@ -466,11 +486,10 @@
   <section class="hero ">
     <div class="hero-body">
       <div class="container has-text-justified">
-        <h2 class="title is-3 has-text-centered"></br><a id="MAPPO">MAPPO</a></h2>
-        <p> MAPPO is a multi-agent extension of PPO that utilizes centralized training with decentralized execution.
-          During
-          training, MAPPO leverages extra state information not available to the agents' local policies.</p>
-          <h3 class="title is-4 has-text-left">Key Aspects</h3>
+        <h2 class="title is-3 has-text-centered"></br><a id="MAPPO">MAPPO</a></h2> 
+        <p> In IPPO, agents are trained independently only using local observation. It causes that the policy can be divergent as the agents do not exchange the information during training. MAPPO is a multi-agent extension of PPO that utilizes centralized training with decentralized execution.
+          Hence, MAPPO leverages extra state information not available to the agents' local policies during training.</p> </br>
+          <h3 class="title is-4 has-text-left">Key Aspects</h3> 
         <ul style="list-style-type:disc">
           <li>MAPPO trains two networks - a decentralized policy network \( \pi_\theta(a_i | o_i) \) for
             each
