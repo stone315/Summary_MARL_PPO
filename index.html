@@ -454,7 +454,7 @@
     <div class="hero-body">
       <div class="container has-text-justified">
         <h2 class="title is-3 has-text-centered"></br><a id="IPPO">IPPO</a></h2>
-        <p> IPPO is a multi-agent version of PPO where each agent directly use PPO to learns an independent policy based only on its own
+        <p> IPPO [3] is a multi-agent version of PPO where each agent directly use PPO to learns an independent policy based only on its own
           observations. </p>
         </br>
         <h3 class="title is-4 has-text-left">Key Aspects</h3>
@@ -488,7 +488,7 @@
       <div class="container has-text-justified">
         <h2 class="title is-3 has-text-centered"></br><a id="MAPPO">MAPPO</a></h2> 
         <p> In IPPO, agents are trained independently only using local observation. It causes that the policy can be divergent as the agents do not exchange the information during training. MAPPO is a multi-agent extension of PPO that utilizes centralized training with decentralized execution.
-          Hence, MAPPO leverages extra state information not available to the agents' local policies during training.</p> </br>
+          Hence, MAPPO [4] leverages extra state information not available to the agents' local policies during training.</p> </br>
           <h3 class="title is-4 has-text-left">Key Aspects</h3> 
         <ul style="list-style-type:disc">
           <li>MAPPO trains two networks - a decentralized policy network \( \pi_\theta(a_i | o_i) \) for
