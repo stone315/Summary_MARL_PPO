@@ -435,23 +435,26 @@
       <div class="container has-text-justified">
         <h2 class="title is-3 has-text-centered"></br><a id="IPPO">IPPO</a></h2>
         <p> IPPO is a multi-agent version of PPO where each agent learns an independent policy based only on its own
-          observations. The key aspects of IPPO are:</p>
-        <ul>
-          <li>Each agent a has its own local policy π<sub>a</sub> and critic V<sub>φ</sub>(z<sub>a</sub><sub>t</sub>)
-          </li>
-          <li>The local policy loss for each agent a is: <img src="./static/image/IPPO.png" style="width:60%"></li>
-          <li>Where A<sub>a</sub><sub>t</sub> is the advantage function computed using the global reward signal</li>
-          <li>The min term implements PPO's clipped probability ratio</li>
-          <li>Network parameters are shared between the decentralized policies and critics</li>
+          observations. </p>
+        </br>
+        <h3 class="title is-4 has-text-left">Key Aspects</h3>
+        <ul  style="list-style-type:disc">
+          <li>Each agent \(a\) has its own local policy \( \pi_a \) and a critic \( V_\phi(z_{at}) \)</li> </br>
+
+          <li>The local policy loss for each agent a is: </br> <img src="./static/image/IPPO.png" style="width:60%"> </br>
+           where \(A_{at}\) is the advantage function computed using the global reward signal.</li> </br>
+          <li>The \( \min \) term implements PPO's clipped probability ratio</li> </br>
+          <li>Network parameters are shared between the decentralized policies and critics</li> </br>
         </ul>
+        <h3 class="title is-4 has-text-left">Main Benefits</h3>
         <p>Despite learning fully decentralized policies, IPPO shows strong performance compared to methods that learn
-          centralized policies. Its main benefits are:</p>
-        <ul>
-          <li>Decentralized execution allows for distributed training and execution</li>
-          <li>Avoids the joint action space explosion faced by centralized methods</li>
-          <li>PPO's policy clipping provides learning stability</li>
+          centralized policies.</p> </br>
+        <ul style="list-style-type:disc">
+          <li>Decentralized execution allows for distributed training and execution</li> </br>
+          <li>Avoids the joint action space explosion faced by centralized methods</li>  </br>
+          <li>PPO's policy clipping provides learning stability</li> </br>
         </ul>
-        <p>IPPO demonstrates that independent learning can achieve excellent results in multi-agent tasks, without
+        <p>Overall, IPPO demonstrates that independent learning can achieve excellent results in multi-agent tasks, without
           needing joint action-value functions. </p>
         </br>
 
@@ -467,28 +470,28 @@
         <p> MAPPO is a multi-agent extension of PPO that utilizes centralized training with decentralized execution.
           During
           training, MAPPO leverages extra state information not available to the agents' local policies.</p>
-        <h3 class="title is-4">Key Aspects</h3>
-        <ul>
-          <li>MAPPO trains two networks - a decentralized policy network π<sub>θ</sub>(a<sub>i</sub>|o<sub>i</sub>) for
+          <h3 class="title is-4 has-text-left">Key Aspects</h3>
+        <ul style="list-style-type:disc">
+          <li>MAPPO trains two networks - a decentralized policy network \( \pi_\theta(a_i | o_i) \) for
             each
-            agent i, and a centralized value network V<sub>φ</sub>(s) that takes the global state s as input.</li>
-          <li>The policy network π<sub>θ</sub> learns to map local observations o<sub>i</sub> to agent actions
-            a<sub>i</sub>.
-          </li>
-          <li>The centralized value network V<sub>φ</sub>(s) uses extra state information unavailable to the agents'
+            agent \(i\), and a centralized value network \(V_\phi (s)\) that takes the global state \(s\) as input.</li> </br>
+          <li>The policy network \(\pi_\theta\) learns to map local observations \(o_i\) to agent actions
+            \(a_i\).
+          </li> </br>
+          <li>The centralized value network \(V_\phi (s)\) uses extra state information unavailable to the agents'
             policies.
-          </li>
-          <li>V<sub>φ</sub>(s) is used to estimate the advantage function A<sub>i</sub> for each agent i, which is then
+          </li></br>
+          <li> \(V_\phi(s)\) is used to estimate the advantage function \(A_i\) for each agent \(i\), which is then
             used to
-            update the local policies π<sub>θ</sub>.</li>
+            update the local policies \(\pi_\theta\).</li> </br>
           <li>At execution time, each agent selects actions using only its local policy network
-            π<sub>θ</sub>(a<sub>i</sub>|o<sub>i</sub>). No communication between agents is required.</li>
+           \(\pi_\theta(a_i|o_i)\) . No communication between agents is required.</li> </br>
         </ul>
         <h3 class="title is-4">Benefits</h3>
-        <ul>
-          <li>Centralized value function V<sub>φ</sub>(s) enables more accurate value estimates to reduce variance.</li>
-          <li>PPO's clipped objective limits policy change for stability.</li>
-          <li>Decentralized execution is flexible and scalable.</li>
+        <ul  style="list-style-type:disc">
+          <li>Centralized value function \(V_\phi(s) \) enables more accurate value estimates to reduce variance.</li> </br>
+          <li>PPO's clipped objective limits policy change for stability.</li> </br>
+          <li>Decentralized execution is flexible and scalable.</li> </br>
           <li>Achieves strong performance compared to decentralized and centralized off-policy methods.</li>
         </ul>
         </br>
@@ -511,7 +514,7 @@
           into individual advantage functions. This method requires agents to follow an arbitrary order, denoted as
           \(1:N\). Agents update their policy sequentially one by one using the loss function (2) from PPO using the
           decomposed advantage function. The total advantage function can then be decomposed using the equation
-          $$A_\pi^{1:N} = \sum_{j=1}^N A_\pi^{j}(s, \textbf{a}^{{1:j-1}},a^{j}) \tag{n} $$
+          $$A_\pi^{1:N} = \sum_{j=1}^N A_\pi^{j}(s, \textbf{a}^{{1:j-1}},a^{j}) \tag{3} $$
 
           where \( A_\pi^{j} \) represents the indivaul advantage function of agent \(j\). The advantage function of
           each agent depends on the actions taken by agents \(1\) through \(j-1\). Importantly, as each agent has its
@@ -519,7 +522,7 @@
           the assumption that the advantage function must consistently maintain a value greater than or equal to zero.
           With this framework, agents can always maximize the cooperative performance by selecting actions that maximize
           the indivual advantage function, as expressed by the equation: $$ \max_{a} A_\pi^{j}(s,
-          \textbf{a}^{{1:j-1}},a^{j}), \forall j \tag{n}.$$ As the first agent's action is solely determined by the
+          \textbf{a}^{{1:j-1}},a^{j}), \forall j \tag{4}.$$ As the first agent's action is solely determined by the
           state \( s_t \), the policy of the first agent must be unchanged for a given state. Consequently, the second
           agent can learn the policy pattern of the first agent during sequential training, crafting its own policy that
           also exclusively relies on the state \( s_t \). This progressive learning extends across all agents, leading
